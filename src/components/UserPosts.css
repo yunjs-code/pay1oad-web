@@ -1,0 +1,47 @@
+.user-posts {
+    background-color: #6caffc;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 20px;
+    width: 50rem; 
+    max-width: 100%; 
+  }
+  
+  .user-posts h3 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .user-posts ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .user-posts .post {
+    background-color: #fff;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .post-title {
+    font-weight: bold;
+  }
+  
+  .post-author {
+    font-style: italic;
+    color: #666;
+  }
+  
+
+  @media (max-width: 768px) {
+    .user-posts {
+      width: auto; 
+      margin: 20px 10px; 
+    }
+  }
+  

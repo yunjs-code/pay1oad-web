@@ -1,0 +1,33 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 10px;
+  }
+  
+  .logo {
+    height: 50px;
+  }
+  
+  .navigation a {
+    text-decoration: none;
+    margin: 0 10px;
+    color: #333;
+  }
+  
+  .search-container {
+    display: flex;
+  }
+  
+  .search-container input {
+    margin-right: 5px;
+  }
+  
+  .login-button {
+    background-color: #f09;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+  }
+  
