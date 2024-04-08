@@ -1,16 +1,16 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';  // useHistory 대신 useNavigate 사용
+import { useNavigate } from 'react-router-dom';  
 import './Header.css';
 
 function Header() {
-  const navigate = useNavigate();  // navigate 함수 생성
+  const navigate = useNavigate();  
 
   const handleLogin = () => {
-    navigate('/login');  // 페이지 이동 실행
+    navigate('/login');  
   };
 
   const goHome = () => {
-    navigate('/'); // 홈으로 이동하는 함수
+    navigate('/'); 
   };
 
   return (

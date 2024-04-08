@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // useHistory 대신 useNavigate 사용
-
+import { useNavigate } from 'react-router-dom';  
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();  // navigate 함수 생성
+  const navigate = useNavigate();  
 
   const handleLogin = (event) => {
     event.preventDefault();
     if (email && password) {
       console.log('로그인 성공:', email, password);
-      navigate('/');  // 로그인 성공 후 메인 페이지로 이동
+      navigate('/'); 
     } else {
       console.log('이메일과 비밀번호를 입력하세요.');
     }
