@@ -21,8 +21,8 @@
   .user-posts .post {
     background-color: #fff;
     padding: 8px;
-    margin-bottom: 5px;
-    border-radius: 5px;
+    /* margin-bottom: 5px;
+    border-radius: 5px; */
     display: flex;
     justify-content: space-between;
     align-items: center;

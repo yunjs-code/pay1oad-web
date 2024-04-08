@@ -22,7 +22,7 @@
   background-color: #36567D;
   color: white;
   border: none;
-  padding: 15px 0;
+  padding: 10px 0;
   margin: 10px auto;
   cursor: pointer;
   width: 90%;
@@ -58,7 +58,7 @@
   background-color: #36567D;
   color: #f7f7f7;
   border: none;
-  padding: 15px 0;
+  padding: 5px 0;
   margin: 10px auto;
   cursor: pointer;
   width: 90%;
@@ -68,10 +68,10 @@
 
 .withdrawal-button {
   display: block;
-  background-color: #36567D;
-  color: #f7f7f7;
+  background-color: #FF6060;
+  color: #36567D;
   border: none;
-  padding: 15px 0;
+  padding: 5px 0;
   margin: 10px auto;
   cursor: pointer;
   width: 90%;
