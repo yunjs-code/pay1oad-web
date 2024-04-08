@@ -1,16 +1,22 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';  
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Header.css';
 
-function Header() {
-  const navigate = useNavigate();  
+function Header({ setSearchQuery }) {
+  const navigate = useNavigate();
+  const [inputValue, setInputValue] = useState('');
 
   const handleLogin = () => {
-    navigate('/login');  
+    navigate('/login');
   };
 
   const goHome = () => {
-    navigate('/'); 
+    navigate('/');
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    setSearchQuery(inputValue);
   };
 
   return (
@@ -22,8 +28,13 @@ function Header() {
         <a href="/ctf">CTF</a>
       </nav>
       <div className="search-container">
-        <input type="search" placeholder="웹사이트 검색..." />
-        <button type="submit">검색</button>
+        <input
+          type="search"
+          placeholder="웹사이트 검색..."
+          value={inputValue}
+          onChange={e => setInputValue(e.target.value)}
+        />
+        <button type="submit" onClick={handleSearch}>검색</button>
       </div>
       <button className="login-button" onClick={handleLogin}>로그인</button>
     </header>

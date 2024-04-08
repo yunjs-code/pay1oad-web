@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import ProfileSidebar from './components/ProfileSidebar';
 import UserInfo from './components/UserInfo';
 import UserPosts from './components/UserPosts';
-import LoginPage from './components/LoginPage'; // 로그인 페이지 컴포넌트 경로 확인
+import LoginPage from './components/LoginPage';
 import './App.css';
 
 function App() {
+  const [searchQuery, setSearchQuery] = useState('');  // 검색 쿼리 상태 추가
+
   return (
     <Router>
       <div className="app">
-        <Header />
+        <Header setSearchQuery={setSearchQuery} />  
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={
@@ -19,7 +21,7 @@ function App() {
               <ProfileSidebar />
               <div className="right-content">
                 <UserInfo />
-                <UserPosts />
+                <UserPosts searchQuery={searchQuery} />  
               </div>
             </div>
           } />
