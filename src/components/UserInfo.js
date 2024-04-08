@@ -6,7 +6,7 @@ function UserInfo() {
   const userInfo = {
     id: 'user1234',
     joinDate: '2021/01/01',
-    rank: 'Gold',
+    rank: '8',
   };
 
   return (
@@ -20,8 +20,8 @@ function UserInfo() {
         <div className="user-info-content">{userInfo.joinDate}</div>
       </div>
       <div className="user-info-section">
-        <div className="user-info-title">CTF 등급</div>
-        <div className="user-info-content">{userInfo.rank}</div>
+        <div className="user-info-title">CTF </div>
+        <div className="user-info-content">{userInfo.rank}개</div>
       </div>
     </div>
   );

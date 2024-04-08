@@ -6,20 +6,6 @@ import './UserPosts.css';
 const posts = [
   { id: 1, title: '1번 게시물', author: '작성자A' },
   { id: 2, title: '2번 게시물', author: '작성자B' },
-  { id: 1, title: '1번 게시물', author: '작성자A' },
-  { id: 2, title: '2번 게시물', author: '작성자B' },
-  { id: 1, title: '1번 게시물', author: '작성자A' },
-  { id: 2, title: '2번 게시물', author: '작성자B' },
-  { id: 1, title: '1번 게시물', author: '작성자A' },
-  { id: 2, title: '2번 게시물', author: '작성자B' },
-  { id: 1, title: '1번 게시물', author: '작성자A' },
-  { id: 2, title: '2번 게시물', author: '작성자B' },
-  { id: 1, title: '1번 게시물', author: '작성자A' },
-  { id: 2, title: '2번 게시물', author: '작성자B' },
-  { id: 1, title: '1번 게시물', author: '작성자A' },
-  { id: 2, title: '2번 게시물', author: '작성자B' },
-  { id: 1, title: '1번 게시물', author: '작성자A' },
-  { id: 2, title: '2번 게시물', author: '작성자B' },
 ];
 
 function UserPosts() {
