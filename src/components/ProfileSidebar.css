@@ -1,62 +1,80 @@
 .profile-sidebar {
-    background-color: #f8f8f8;
-    padding: 20px;
-    width: 250px; 
-  }
-  
-  .profile-header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .profile-picture {
-    background-color: #c4c4c4;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 10px;
-  }
-  
-  .edit-profile-button {
-    display: block;
-    background-color: #ee6a76;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
-  .profile-info {
-    margin-bottom: 20px;
-  }
-  
-  .profile-info-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  
-  .profile-info-title {
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .profile-info-value {
-    color: #ee6a76;
-  }
-  
-  .profile-actions {
-    text-align: center;
-  }
-  
-  .promotion-request-button,
-  .withdrawal-button {
-    display: block;
-    background-color: #eeeeee;
-    color: #333;
-    border: none;
-    padding: 5px 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-  }
-  
+  background-color: #f8f8f8;
+  padding: 20px;
+  width: 250px; 
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-picture {
+  background-color: #c4c4c4;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 10px;
+}
+
+.edit-profile-button {
+  display: block;
+  background-color: #36567D;
+  color: white;
+  border: none;
+  padding: 15px 0;
+  margin: 10px auto;
+  cursor: pointer;
+  width: 90%;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.profile-info {
+  margin-bottom: 20px;
+}
+
+.profile-info-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.profile-info-title {
+  font-weight: bold;
+  color: #555;
+}
+
+.profile-info-value {
+  color: #36567D;
+}
+
+.profile-actions {
+  text-align: center;
+}
+
+.promotion-request-button{
+  display: block;
+  background-color: #36567D;
+  color: #f7f7f7;
+  border: none;
+  padding: 15px 0;
+  margin: 10px auto;
+  cursor: pointer;
+  width: 90%;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.withdrawal-button {
+  display: block;
+  background-color: #36567D;
+  color: #f7f7f7;
+  border: none;
+  padding: 15px 0;
+  margin: 10px auto;
+  cursor: pointer;
+  width: 90%;
+  border-radius: 5px;
+  font-size: 1em;
+}

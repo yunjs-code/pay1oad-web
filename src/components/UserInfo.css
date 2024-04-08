@@ -1,7 +1,7 @@
 .user-info {
-  background-color: #6caffc;
+  background-color:#36567D;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 30px;
   padding: 15px;
   margin: 20px;
   width: 50rem; 
@@ -15,11 +15,14 @@
 .user-info-title {
   font-weight: bold;
   margin-bottom: 5px;
-  color: #333;
+  color: #fff;
 }
 
 .user-info-content {
-  color: #666;
+  color: #242020;
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 9px;
 }
 
 

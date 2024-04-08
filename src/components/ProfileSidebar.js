@@ -16,7 +16,7 @@ function ProfileSidebar() {
   };
 
   const handlePromotionRequest = () => {
-    console.log('프로모션 요청 버튼이 클릭되었습니다.');
+    console.log('승급 요청 버튼이 클릭되었습니다.');
   };
 
   const handleWithdrawal = () => {
