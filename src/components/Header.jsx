@@ -25,7 +25,7 @@ function Header({ setSearchQuery }) {
       <nav className="navigation">
         <a href="/club-news">동아리 소식</a>
         <a href="/security-news">보안 소식</a>
-        <a href="/ctf">CTF</a>
+        <a href="https://your-ctfd-url.com" target="_blank" rel="noopener noreferrer">CTF</a> {/* CTFd 페이지로 직접 연결 */}
       </nav>
       <div className="search-container">
         <input
