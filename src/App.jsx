@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import ProfileSidebar from './components/ProfileSidebar';
-import UserInfo from './components/UserInfo';
-import UserPosts from './components/UserPosts';
-import LoginPage from './components/LoginPage';
+import Header from './components/main/Header';
+import ProfileSidebar from './components/userpage/ProfileSidebar';
+import UserInfo from './components/userpage/UserInfo';
+import UserPosts from './components/userpage/UserPosts';
+import LoginPage from './components/login/LoginPage';
 import './App.css';
 
 function App() {
