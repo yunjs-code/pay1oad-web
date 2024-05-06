@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import MainHome from "./MainHome";
 import MainClubNews from "./MainClubNews";
-import Header from "./Header";
+import  "./Header";
 
 const Base = styled.div`
   width: 100%;
