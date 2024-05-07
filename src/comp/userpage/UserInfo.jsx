@@ -9,7 +9,7 @@ function UserInfo() {
     const fetchSolves = async () => {
       try {
         // CTFd API 엔드포인트를 사용
-        const response = await axios.get('http://192.168.74.128:8000/api/v1/challenges/solves', {
+        const response = await axios.get('http://pay1oad.com:50001/api/v1/challenges/solves', {
           headers: { 'Authorization': 'ctfd_9f9756a2deh4d2a3511c837aa90d4a6fa587ca24f35557534eee6f634eea03807' }
         });
         setSolvesCount(response.data.data.length); // 해결된 문제의 수를 상태로 설정
