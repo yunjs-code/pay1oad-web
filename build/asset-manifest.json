@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.d18c940e.css",
-    "main.js": "/static/js/main.a1b46514.js",
+    "main.css": "/static/css/main.8efe18fd.css",
+    "main.js": "/static/js/main.7644779c.js",
     "static/js/453.8fb4e126.chunk.js": "/static/js/453.8fb4e126.chunk.js",
     "static/media/logo.png": "/static/media/logo.eaf63cef8a7f94d3562c.png",
     "static/media/Fontspring-DEMO-integralcf-extrabold.otf": "/static/media/Fontspring-DEMO-integralcf-extrabold.c85c9e9c39fde1cb5c54.otf",
     "index.html": "/index.html",
-    "main.d18c940e.css.map": "/static/css/main.d18c940e.css.map",
-    "main.a1b46514.js.map": "/static/js/main.a1b46514.js.map",
+    "main.8efe18fd.css.map": "/static/css/main.8efe18fd.css.map",
+    "main.7644779c.js.map": "/static/js/main.7644779c.js.map",
     "453.8fb4e126.chunk.js.map": "/static/js/453.8fb4e126.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d18c940e.css",
-    "static/js/main.a1b46514.js"
+    "static/css/main.8efe18fd.css",
+    "static/js/main.7644779c.js"
   ]
 }

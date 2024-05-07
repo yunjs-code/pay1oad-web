@@ -14,11 +14,12 @@ function UserPage() {
       <div className="container">
         <div className="main-content">
           <ProfileSidebar />
-        </div>
-        <div className="right-content">
+          <div className="right-content">
           <UserInfo />
           <UserPosts />
         </div>
+        </div>
+        
       </div>
     </div>
   );

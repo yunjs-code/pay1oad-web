@@ -21,7 +21,7 @@ const RightWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin-right :10px;
+  margin-right: 10px;
   flex-direction: row;
 `;
 
@@ -47,9 +47,10 @@ function Header() {
   const [userName, setUserName] = useState("");
 
   const handleLogout = () => {
-    console.log("로그아웃 버튼 클릭")
+    console.log("로그아웃 버튼 클릭");
     setLoginSuccess(false);
   };
+
   const goToSign = () => {
     navigate("/SignIn");
   };
@@ -62,10 +63,14 @@ function Header() {
     navigate("/ClubNews");
   };
 
-
-  const goToUserPage= () => {
+  const goToUserPage = () => {
     navigate("/UserPage");
   };
+
+  const goToCtf = () => {
+    window.location.href = "http://192.168.74.128:8000/";
+  };
+
   const location = useLocation();
   const loggedIn = location.state?.loggedIn || false;
 
@@ -80,20 +85,18 @@ function Header() {
     }
   }, [loggedIn, location.state]);
 
-
   return (
     <BackgroundColor>
       <LeftWrapper>
         <TextCss onClick={goToClubNews}>Club News</TextCss>
         <TextCss>Security News</TextCss>
-        <TextCss>CTF</TextCss>
+        <TextCss onClick={goToCtf}>CTF</TextCss>
       </LeftWrapper>
       <RightWrapper>
           {loginSuccess ? (
               <>
-                <p onClick={goToUserPage}> {userName} 님  </p>
-                <Button onClick={handleLogout}>로그아웃
-                </Button>
+                <p onClick={goToUserPage}>{userName} 님</p>
+                <Button onClick={handleLogout}>로그아웃</Button>
               </>
           ) : (
               <>
