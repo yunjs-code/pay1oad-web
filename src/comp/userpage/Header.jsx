@@ -25,7 +25,7 @@ function Header({ setSearchQuery }) {
       <nav className="navigation">
         <a href="/club-news">동아리 소식</a>
         <a href="/security-news">보안 소식</a>
-        <a href="http://192.168.74.128:8000/" target="_blank" rel="noopener noreferrer">CTF</a> 
+        <a href="http://pay1oad.com:50001/" target="_blank" rel="noopener noreferrer">CTF</a> 
       </nav>
       <div className="search-container">
         <input

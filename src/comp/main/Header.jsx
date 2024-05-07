@@ -68,7 +68,7 @@ function Header() {
   };
 
   const goToCtf = () => {
-    window.location.href = "http://192.168.74.128:8000/";
+    window.location.href = "http://pay1oad.com:50001/";
   };
 
   const location = useLocation();
