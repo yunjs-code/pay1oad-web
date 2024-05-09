@@ -8,7 +8,7 @@ const posts = [
 
 function UserPosts({ searchQuery }) {
   const filteredPosts = posts.filter(post =>
-    (post.title && searchQuery) ? post.title.toLowerCase().includes(searchQuery.toLowerCase()) : false
+    !searchQuery || post.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
