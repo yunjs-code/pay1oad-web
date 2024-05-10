@@ -36,7 +36,7 @@ function Header({ setSearchQuery }) {
         />
         <button type="submit" onClick={handleSearch}>검색</button>
       </div>
-      <button className="login-button" onClick={handleLogin}>로그인</button>
+      <button className="logout-button" onClick={handleLogin}>로그 아웃</button>
     </header>
   );
 }
