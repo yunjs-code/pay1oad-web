@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/actions/authActions";
-axios.defaults.baseURL = "http://localhost:3000/api";
+axios.defaults.baseURL = "http://pay1oad.com/api";
 axios.defaults.withCredentials = true;
 
 const BackgroundColor = styled.div`

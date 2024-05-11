@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:3000/api";
+
+// 변경된 API의 기본 URL 설정
+axios.defaults.baseURL = "http://pay1oad.com/api";
 
 const BackgroundColor = styled.div`
   background-color: #36567d;
@@ -27,6 +29,7 @@ const Box = styled.div`
     width: 350px;
   }
 `;
+
 const TextBoxWrapper = styled.div`
   height: 20%;
   width: 100%;
@@ -34,6 +37,7 @@ const TextBoxWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 const InputBoxWrapper = styled.div`
   height: 300px;
   width: 100%;
@@ -41,9 +45,8 @@ const InputBoxWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;
+
 const Input = styled.input`
   background-color: transparent;
   border: solid gray;
@@ -52,6 +55,7 @@ const Input = styled.input`
   margin-top: 20px;
   border-radius: 10px;
 `;
+
 const TextWrapper = styled.button`
   display: flex;
   justify-content: space-between;
@@ -95,17 +99,13 @@ function SignInMain() {
     } else if (!email) {
       return alert("email을 입력하세요");
     } else if (!checkInput(email)) {
-      return alert(
-        "email에 입력할 수 없는 특수문자나 단어가 포함되어 있습니다."
-      );
+      return alert("email에 입력할 수 없는 특수문자나 단어가 포함되어 있습니다.");
     } else if (!validateEmail(email)) {
       alert("올바른 이메일 주소를 입력하세요.");
     } else if (!password) {
       return alert("password를 입력해주세요");
     } else if (!checkInput(password)) {
-      return alert(
-        "password에 입력할 수 없는 특수문자나 단어가 포함되어 있습니다."
-      );
+      return alert("password에 입력할 수 없는 특수문자나 단어가 포함되어 있습니다.");
     } else if (password.length < 8) {
       alert("비밀번호는 8자리 이상이어야 합니다.");
     } else if (!passwordRegex.test(password)) {
@@ -113,36 +113,23 @@ function SignInMain() {
     } else if (!confirmPassword) {
       return alert("password를 다시 한번 입력해 주세요");
     } else if (!checkInput(confirmPassword)) {
-      return alert(
-        "confirmPassword에 입력할 수 없는 특수문자나 단어가 포함되어 있습니다."
-      );
+      return alert("confirmPassword에 입력할 수 없는 특수문자나 단어가 포함되어 있습니다.");
     } else if (password !== confirmPassword) {
       alert("비밀번호가 일치하지 않습니다.");
     } else {
-      navigate("/nickname");
+      navigate("/nickname"); // 유저를 닉네임 설정 페이지로 이동
     }
   };
 
   const checkInput = (input) => {
-    //특수문자
     const specialChar = /[%=*><]/;
     if (specialChar.test(input)) {
       return false;
     }
 
-    //sql 문법
     const sqlWord = [
-      "SELECT",
-      "INSERT",
-      "DELETE",
-      "UPDATE",
-      "CREATE",
-      "DROP",
-      "EXEC",
-      "UNION",
-      "FETCH",
-      "DECLARE",
-      "TRUNCATE",
+      "SELECT", "INSERT", "DELETE", "UPDATE", "CREATE", "DROP", "EXEC",
+      "UNION", "FETCH", "DECLARE", "TRUNCATE"
     ];
     const uppercaseInput = input.toUpperCase();
     for (let i = 0; i < sqlWord.length; i++) {
@@ -152,12 +139,13 @@ function SignInMain() {
     }
     return true;
   };
+
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
-  const passwordRegex =
-    /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+
+  const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -167,15 +155,13 @@ function SignInMain() {
     });
   };
 
-  //Id 중복 확인
-  //백엔드 통신
   useEffect(() => {
     const checkIdAvailability = async () => {
       if (inputs.id === "") {
-        setIsIdAvailable(true); // ID 공백이면 비교X
+        setIsIdAvailable(true);
       } else {
         try {
-          const response = await axios.get(`/auth/--api이름--?id=${inputs.id}`);
+          const response = await axios.get(`/auth/id-availability?id=${inputs.id}`);
           setIsIdAvailable(response.data.isAvailable);
         } catch (error) {
           console.error("Error checking ID availability:", error);
@@ -187,7 +173,7 @@ function SignInMain() {
   }, [inputs.id]);
 
   const handlePasswordPaste = (e) => {
-    e.preventDefault(); // 복사 붙여넣기 이벤트를 막음
+    e.preventDefault();
     alert("비밀번호는 복사 붙여넣기 할 수 없습니다.");
   };
 
@@ -217,7 +203,7 @@ function SignInMain() {
             onPaste={handlePasswordPaste}
           />
           <Input
-            placeholder="more password"
+            placeholder="confirm password"
             name="confirmPassword"
             type="password"
             value={inputs.confirmPassword}
