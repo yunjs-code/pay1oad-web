@@ -93,17 +93,8 @@ function Header() {
         <TextCss onClick={goToCtf}>CTF</TextCss>
       </LeftWrapper>
       <RightWrapper>
-          {loginSuccess ? (
-              <>
                 <p onClick={goToUserPage}>{userName} 님</p>
                 <Button onClick={handleLogout}>로그아웃</Button>
-              </>
-          ) : (
-              <>
-                <TextCss onClick={goToSign}>SIGN IN</TextCss>
-                <TextCss onClick={goToLogIn}>LOG IN</TextCss>
-              </>
-          )}
       </RightWrapper>
     </BackgroundColor>
   );

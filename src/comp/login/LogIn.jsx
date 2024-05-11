@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/actions/authActions";
-axios.defaults.baseURL = "http://pay1oad.com/api";
+axios.defaults.baseURL = "http://pay1oad.com/api/";
 axios.defaults.withCredentials = true;
 
 const BackgroundColor = styled.div`
@@ -146,7 +146,7 @@ function LogIn() {
       console.dir(data);
 
       axios
-        .post("/auth/signin", data)
+        .post("http://pay1oad.com/api/auth/signin", data)
         .then((response) => {
           console.log("서버 응답 데이터:", response);
           const { error, data } = response;

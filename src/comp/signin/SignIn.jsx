@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // 변경된 API의 기본 URL 설정
-axios.defaults.baseURL = "http://pay1oad.com/api";
+axios.defaults.baseURL = "http://pay1oad.com/api/";
 
 const BackgroundColor = styled.div`
   background-color: #36567d;
@@ -161,13 +161,28 @@ function SignInMain() {
         setIsIdAvailable(true);
       } else {
         try {
-          const response = await axios.get(`/auth/id-availability?id=${inputs.id}`);
+          console.log(inputs.id);
+          // axios.post를 await로 호출하여 비동기 처리를 기다립니다.
+          const response = await axios.post(
+            "http://pay1oad.com/api/auth/signin", 
+            JSON.stringify({
+              username: inputs.id,
+              passwd: inputs.password
+            }), 
+            {
+              headers: {
+                "Content-Type": "application/json"
+              }
+            }
+          );
+          // 응답 완료 후 사용 가능 여부를 상태로 설정
           setIsIdAvailable(response.data.isAvailable);
         } catch (error) {
           console.error("Error checking ID availability:", error);
         }
       }
     };
+  
 
     checkIdAvailability();
   }, [inputs.id]);
