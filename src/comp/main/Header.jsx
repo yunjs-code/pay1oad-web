@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../../redux/actions/authActions'; // logoutUser 액션 가져오기
 
 const BackgroundColor = styled.div`
   background-color: #b4ccdf;
@@ -50,9 +52,11 @@ const SearchContainer = styled.div`
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch(); // useDispatch를 호출하여 dispatch를 생성
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [userName, setUserName] = useState("");
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(""); // 'setInputSize'를 'setInputValue'로 수정
+
 
   useEffect(() => {
     const loggedIn = location.state?.loggedIn || false;
@@ -61,14 +65,18 @@ const Header = () => {
       const usernameFromState = location.state?.username || "";
       setUserName(usernameFromState);
     } else {
-      setLoginSuccess(false);
+      setLoginSuccess(false);  // 'setLoginAuth'를 'setLoginSuccess'로 수정
       setUserName("");
     }
   }, [location.state]);
+  
 
   const handleLogout = () => {
     console.log("로그아웃 버튼 클릭");
+    dispatch(logoutUser()); // dispatch를 사용하여 로그아웃 액션을 디스패치
     setLoginSuccess(false);
+    setUserName("");
+    navigate("/");
   };
 
   const goToSign = () => {
@@ -89,7 +97,7 @@ const Header = () => {
 
   const handleSearch = () => {
     console.log("검색 버튼 클릭");
-    // Implement your search functionality here
+    // 검색 기능 구현 필요
   };
   const goToCtf = () => {
     window.location.href = "http://pay1oad.com:50001/";
