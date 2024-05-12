@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import styled from "styled-components";
 // 변경된 API의 기본 URL 설정
 axios.defaults.baseURL = "http://pay1oad.com/api/";
-
+ 
 const BackgroundColor = styled.div`
   background-color: #36567d;
   height: 100vh;
@@ -117,14 +116,19 @@ function SignInMain() {
     } else if (password !== confirmPassword) {
       alert("비밀번호가 일치하지 않습니다.");
     } else {
-      // 모든 유효성 검사를 통과한 후 서버에 데이터를 POST 요청
+      const userData = {
+        username: id,
+        email: email,
+        passwd: password
+      };
+      console.log("Sending data to server:", userData);
       try {
         const response = await axios.post(
           "http://pay1oad.com/api/auth/signup", 
-          JSON.stringify({ id, email, password }), 
+          userData, 
           { headers: { "Content-Type": "application/json" }}
         );
-        // 성공적으로 데이터를 전송한 후 다음 페이지로 이동
+        console.log("Signup success:", response.data);
         navigate("/nickname");
       } catch (error) {
         console.error("Signup Error:", error);
@@ -132,6 +136,8 @@ function SignInMain() {
       }
     }
   };
+  
+
   
 
   const checkInput = (input) => {
