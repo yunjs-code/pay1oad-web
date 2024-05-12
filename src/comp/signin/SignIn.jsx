@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-// 변경된 API의 기본 URL 설정
+// API 기본 URL 설정
 axios.defaults.baseURL = "http://pay1oad.com/api/";
 
 const BackgroundColor = styled.div`
@@ -30,14 +30,6 @@ const Box = styled.div`
   }
 `;
 
-const TextBoxWrapper = styled.div`
-  height: 20%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const InputBoxWrapper = styled.div`
   height: 300px;
   width: 100%;
@@ -56,7 +48,7 @@ const Input = styled.input`
   border-radius: 10px;
 `;
 
-const TextWrapper = styled.button`
+const TextWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -67,25 +59,34 @@ const TextWrapper = styled.button`
   align-items: center;
 `;
 
-const Text = styled.button`
+const Text = styled.div`
   width: 100%;
   height: 30px;
   background-color: transparent;
   border: none;
+  cursor: pointer;
 `;
 
 function SignInMain() {
   const navigate = useNavigate();
-  const [isIdAvailable, setIsIdAvailable] = useState(true);
   const [inputs, setInputs] = useState({
     id: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-
-  const goToMain = () => {
+const goToMain = () => {
     navigate("/");
+  };
+  // isIdAvailable 상태 추가
+  const [isIdAvailable, setIsIdAvailable] = useState(true);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setInputs(prevInputs => ({
+      ...prevInputs,
+      [name]: value
+    }));
   };
 
   const handleNextClick = () => {
@@ -146,56 +147,19 @@ function SignInMain() {
   };
 
   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
-  };
-
-  useEffect(() => {
-    const checkIdAvailability = async () => {
-      if (inputs.id === "") {
-        setIsIdAvailable(true);
-      } else {
-        try {
-          console.log(inputs.id);
-          // axios.post를 await로 호출하여 비동기 처리를 기다립니다.
-          const response = await axios.post(
-            "http://pay1oad.com/api/auth/signin", 
-            JSON.stringify({
-              username: inputs.id,
-              passwd: inputs.password
-            }), 
-            {
-              headers: {
-                "Content-Type": "application/json"
-              }
-            }
-          );
-          // 응답 완료 후 사용 가능 여부를 상태로 설정
-          setIsIdAvailable(response.data.isAvailable);
-        } catch (error) {
-          console.error("Error checking ID availability:", error);
-        }
-      }
-    };
-  
-
-    checkIdAvailability();
-  }, [inputs.id]);
-
-  const handlePasswordPaste = (e) => {
-    e.preventDefault();
-    alert("비밀번호는 복사 붙여넣기 할 수 없습니다.");
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post("auth/signin", inputs);
+      console.log('Response:', response.data);
+      navigate("/next"); // 성공 시 다음 페이지로 이동
+    } catch (error) {
+      console.error("Error on submission:", error);
+    }
   };
 
   return (
     <BackgroundColor>
       <Box>
-        <TextBoxWrapper>회원가입</TextBoxWrapper>
         <InputBoxWrapper>
           <Input
             placeholder="ID"
@@ -215,7 +179,6 @@ function SignInMain() {
             type="password"
             value={inputs.password}
             onChange={handleInputChange}
-            onPaste={handlePasswordPaste}
           />
           <Input
             placeholder="confirm password"
@@ -226,7 +189,7 @@ function SignInMain() {
           />
         </InputBoxWrapper>
         <TextWrapper>
-          <Text onClick={goToMain}>이전</Text>
+          <Text onClick={() => navigate("/")}>이전</Text>
           <Text onClick={handleNextClick}>다음</Text>
         </TextWrapper>
       </Box>

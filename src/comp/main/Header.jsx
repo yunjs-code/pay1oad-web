@@ -39,6 +39,7 @@ const Button = styled.button`
   color: #000000;
   margin-right: 10px;
   margin-left: 10px;
+  white-space: nowrap; /* Prevents the text inside the button from wrapping */
 `;
 
 const SearchContainer = styled.div`
