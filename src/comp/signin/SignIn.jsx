@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-// API 기본 URL 설정
+// 변경된 API의 기본 URL 설정
 axios.defaults.baseURL = "http://pay1oad.com/api/";
 
 const BackgroundColor = styled.div`
@@ -30,6 +30,14 @@ const Box = styled.div`
   }
 `;
 
+const TextBoxWrapper = styled.div`
+  height: 20%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const InputBoxWrapper = styled.div`
   height: 300px;
   width: 100%;
@@ -48,7 +56,7 @@ const Input = styled.input`
   border-radius: 10px;
 `;
 
-const TextWrapper = styled.div`
+const TextWrapper = styled.button`
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -59,37 +67,28 @@ const TextWrapper = styled.div`
   align-items: center;
 `;
 
-const Text = styled.div`
+const Text = styled.button`
   width: 100%;
   height: 30px;
   background-color: transparent;
   border: none;
-  cursor: pointer;
 `;
 
 function SignInMain() {
   const navigate = useNavigate();
+  const [isIdAvailable, setIsIdAvailable] = useState(true);
   const [inputs, setInputs] = useState({
     id: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-const goToMain = () => {
+
+  const goToMain = () => {
     navigate("/");
   };
-  // isIdAvailable 상태 추가
-  const [isIdAvailable, setIsIdAvailable] = useState(true);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setInputs(prevInputs => ({
-      ...prevInputs,
-      [name]: value
-    }));
-  };
-
-  const handleNextClick = () => {
+  const handleNextClick = async () => {
     const { id, email, password, confirmPassword } = inputs;
     if (!id) {
       return alert("ID를 입력하세요.");
@@ -118,9 +117,22 @@ const goToMain = () => {
     } else if (password !== confirmPassword) {
       alert("비밀번호가 일치하지 않습니다.");
     } else {
-      navigate("/nickname"); // 유저를 닉네임 설정 페이지로 이동
+      // 모든 유효성 검사를 통과한 후 서버에 데이터를 POST 요청
+      try {
+        const response = await axios.post(
+          "http://pay1oad.com/api/auth/signup", 
+          JSON.stringify({ id, email, password }), 
+          { headers: { "Content-Type": "application/json" }}
+        );
+        // 성공적으로 데이터를 전송한 후 다음 페이지로 이동
+        navigate("/nickname");
+      } catch (error) {
+        console.error("Signup Error:", error);
+        alert("회원가입 과정에서 문제가 발생했습니다.");
+      }
     }
   };
+  
 
   const checkInput = (input) => {
     const specialChar = /[%=*><]/;
@@ -147,19 +159,24 @@ const goToMain = () => {
   };
 
   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
-  const handleSubmit = async () => {
-    try {
-      const response = await axios.post("auth/signin", inputs);
-      console.log('Response:', response.data);
-      navigate("/next"); // 성공 시 다음 페이지로 이동
-    } catch (error) {
-      console.error("Error on submission:", error);
-    }
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
+
+  const handlePasswordPaste = (e) => {
+    e.preventDefault();
+    alert("비밀번호는 복사 붙여넣기 할 수 없습니다.");
   };
 
   return (
     <BackgroundColor>
       <Box>
+        <TextBoxWrapper>회원가입</TextBoxWrapper>
         <InputBoxWrapper>
           <Input
             placeholder="ID"
@@ -179,6 +196,7 @@ const goToMain = () => {
             type="password"
             value={inputs.password}
             onChange={handleInputChange}
+            onPaste={handlePasswordPaste}
           />
           <Input
             placeholder="confirm password"
@@ -189,7 +207,7 @@ const goToMain = () => {
           />
         </InputBoxWrapper>
         <TextWrapper>
-          <Text onClick={() => navigate("/")}>이전</Text>
+          <Text onClick={goToMain}>이전</Text>
           <Text onClick={handleNextClick}>다음</Text>
         </TextWrapper>
       </Box>
