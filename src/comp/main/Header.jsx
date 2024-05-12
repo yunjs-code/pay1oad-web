@@ -41,10 +41,29 @@ const Button = styled.button`
   margin-left: 10px;
 `;
 
-function Header() {
+const SearchContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [userName, setUserName] = useState("");
+  const [inputValue, setInputValue] = useState("");
+
+  useEffect(() => {
+    const loggedIn = location.state?.loggedIn || false;
+    if (loggedIn) {
+      setLoginSuccess(true);
+      const usernameFromState = location.state?.username || "";
+      setUserName(usernameFromState);
+    } else {
+      setLoginSuccess(false);
+      setUserName("");
+    }
+  }, [location.state]);
 
   const handleLogout = () => {
     console.log("로그아웃 버튼 클릭");
@@ -64,38 +83,39 @@ function Header() {
   };
 
   const goToUserPage = () => {
-    navigate("/UserPage");
+    navigate("/UserPage", { state: { loggedIn: true, username: userName }});
   };
 
+  const handleSearch = () => {
+    console.log("검색 버튼 클릭");
+    // Implement your search functionality here
+  };
   const goToCtf = () => {
     window.location.href = "http://pay1oad.com:50001/";
   };
 
-  const location = useLocation();
-  const loggedIn = location.state?.loggedIn || false;
-
-  useEffect(() => {
-    if (loggedIn) {
-      setLoginSuccess(true);
-      const usernameFromState = location.state?.username || "";
-      setUserName(usernameFromState);
-    } else {
-      setLoginSuccess(false);
-      setUserName("");
-    }
-  }, [loggedIn, location.state]);
-
   return (
-    <BackgroundColor>
-      <LeftWrapper>
-        <TextCss onClick={goToClubNews}>Club News</TextCss>
-        <TextCss>Security News</TextCss>
-        <TextCss onClick={goToCtf}>CTF</TextCss>
-      </LeftWrapper>
-      <RightWrapper>
+      <BackgroundColor>
+        <LeftWrapper>
+          <TextCss onClick={goToClubNews}>Club News</TextCss>
+          <TextCss>Security News</TextCss>
+          <TextCss onClick={goToCtf}>CTF</TextCss>
+        </LeftWrapper>
+        <SearchContainer>
+          <input
+              type="search"
+              placeholder="웹사이트 검색..."
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+          />
+          <Button type="submit" onClick={handleSearch}>
+            검색
+          </Button>
+        </SearchContainer>
+        <RightWrapper>
           {loginSuccess ? (
               <>
-                <p onClick={goToUserPage}>{userName} 님</p>
+                <TextCss onClick={goToUserPage}> {userName} 님 </TextCss>
                 <Button onClick={handleLogout}>로그아웃</Button>
               </>
           ) : (
@@ -104,9 +124,9 @@ function Header() {
                 <TextCss onClick={goToLogIn}>LOG IN</TextCss>
               </>
           )}
-      </RightWrapper>
-    </BackgroundColor>
+        </RightWrapper>
+      </BackgroundColor>
   );
-}
+};
 
 export default Header;

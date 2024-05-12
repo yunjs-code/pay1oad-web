@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/actions/authActions";
-axios.defaults.baseURL = "http://pay1oad.com/api/";
+axios.defaults.baseURL = "http://pay1oad.com/api";
 axios.defaults.withCredentials = true;
 
 const BackgroundColor = styled.div`
@@ -54,7 +54,7 @@ const Input = styled.input`
 `;
 const ButtonCss = styled.button`
   height: 60px;
-  width: 80%;
+  width: 400px;
   margin-bottom: 10px;
   border-radius: 10px;
 `;
@@ -146,7 +146,7 @@ function LogIn() {
       console.dir(data);
 
       axios
-        .post("http://pay1oad.com/api/auth/signin", data)
+      .post("http://pay1oad.com/api/auth/signin", data)
         .then((response) => {
           console.log("서버 응답 데이터:", response);
           const { error, data } = response;
@@ -162,7 +162,8 @@ function LogIn() {
               "Authorization"
             ] = `Bearer ${accessToken}`;
             dispatch(loginUser(userInfo)); // 사용자 정보를 Redux store에 저장
-            navigate("/", { state: { loggedIn: true, username: data.username}}); // mainhome으로 이동
+            navigate("/", { state: { loggedIn: true, username: data.username }});
+            // mainhome으로 이
           }
         })
         .catch((error) => {

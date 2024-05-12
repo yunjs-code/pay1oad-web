@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:3000/api";
+axios.defaults.baseURL = "http://pay1oad.com/api";
 
 const BackgroundColor = styled.div`
   background-color: #36567d;
