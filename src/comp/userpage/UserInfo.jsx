@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserInfo.css';
 
-function UserInfo() {
+function UserInfo({ userName }) {
   const [selectedTab, setSelectedTab] = useState('정보');
   const [solvesCount, setSolvesCount] = useState(0);
   const [totalValue, setTotalValue] = useState(0);
@@ -47,17 +47,6 @@ function UserInfo() {
         } else {
           console.error('사용자 데이터를 불러오는데 실패했습니다.');
         }
-
-        const postResponseUserInfo = await axios.post('http://pay1oad.com/api/auth/signin', {
-          headers: { 'Authorization': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzIiwiaXNzIjoiUGF5MW9hZCBIb21lcGFnZSIsImlhdCI6MTcxMjQwNDI3OSwiZXhwIjoxNzEyNDkwNjc5fQ._uaCHew4ufXju6_WFpad0VBTZRKzh0TjZqp0dvA33I2Pjrnc1jOv3_w-8z6zJRsWRVyODkm_QCC3pFdADAQenA' }
-        });
-        if (postResponseUserInfo.data.success && postResponseUserInfo.data.data) {
-          setUserInfo({
-            name: postResponseUserInfo.data.data.username,
-          });
-        } else {
-          console.error('사용자 데이터를 불러오는데 실패했습니다.');
-        }
       } catch (error) {
         console.error('API 요청 중 오류 발생:', error);
       }
@@ -86,9 +75,8 @@ function UserInfo() {
       case '정보':
         return (
           <div className="tab-content">
-            <div className="detail-item">{userInfo.name} 님의 가입 정보입니다.</div>
-            <div className="detail-item">이름: {ctfduserInfo.name}</div>
-            <div className="detail-item">가입 날짜: {ctfduserInfo.joinDate}</div>
+            <div className="detail-item">{userName} 님의 가입 정보입니다.</div> {/* 수정된 부분 */}
+            
           </div>
         );
       case 'CTF':
@@ -103,53 +91,56 @@ function UserInfo() {
         return (
           <div className="tab-content">
             <div className="detail-item">댓글</div>
-<div className="detail-item">질문</div>
-<div className="detail-item">작성 글</div>
-</div>
-);
-case '저장':
-return (
-<div className="tab-content">
-<input
-type="text"
-placeholder="Search posts..."
-value={searchQuery}
-onChange={(e) => setSearchSearch(e.target.value)}
-/>
-{filteredPosts.slice(startIndex, endIndex).map(post => (
-<div key={post.id} className="detail-item">{post.content}</div>
-))}
-<div>
-<button disabled={currentPage <= 1} onClick={() => setCurrentPage(currentPage - 1)}>Prev</button>
-<button disabled={endIndex >= filteredPosts.length} onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
-</div>
-</div>
-);
-default:
-return (
-<div className="tab-content">
-탭을 선택해주세요.
-</div>
-);
-}
-};
+            <div className="detail-item">질문</div>
+            <div className="detail-item">작성 글</div>
+          </div>
+        );
+        case '저장':
+          return (
+            <div className="tab-content">
+              <input
+                type="text"
+                placeholder="Search posts..."
+                value={searchQuery}  // Corrected to show the state variable
+                onChange={(e) => setSearchSearch(e.target.value)}
+              />
+              {filteredPosts.slice(startIndex, endIndex).map(post => (
+                <div key={post.id} className="detail-item">{post.content}</div>
+              ))}
+              <div>
+                <button disabled={currentPage <= 1} onClick={() => setCurrentPage(currentPage - 1)}>이전</button>
+                <button disabled={endIndex >= filteredPosts.length} onClick={() => setCurrentPage(currentPage + 1)}>다음</button>
+              </div>
+            </div>
+          );
+        
+      default:
+        return (
+          <div className="tab-content">
+            탭을 선택해주세요.
+          </div>
+        );
+    }
+  };
 
-return (
-<div className="user-info">
-<div className="tab-buttons">
-{['정보', 'CTF', '커뮤니티', '저장'].map(tab => (
-<button
-key={tab}
-className={selectedTab === tab ? 'active' : ''}
-onClick={() => handleSelectTab(tab)}
->
-{tab}
-</button>
-))}
-</div>
-{renderTabContent()}
-</div>
-);
+  return (
+    <div className="user-info">
+      <div className="tab-buttons">
+        {['정보', 'CTF', '커뮤니티', '저장'].map(tab => (
+          <button
+            key={tab}
+            className={selectedTab === tab ? 'active' : ''}
+            onClick={() => handleSelectTab(tab)}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+      {renderTabContent()}
+    </div>
+  );
 }
 
-export default UserInfo;  
+export default UserInfo;
+
+  

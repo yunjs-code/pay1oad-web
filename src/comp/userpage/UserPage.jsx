@@ -1,23 +1,26 @@
 // UserPage.jsx
 
 import React from 'react';
-import Header from '../main/Header'; // Header 컴포넌트를 import 합니다.
-import ProfileSidebar from './ProfileSidebar'; // ProfileSidebar 컴포넌트를 import 합니다.
-import UserInfo from './UserInfo'; // UserInfo 컴포넌트를 import 합니다.
+import { useLocation } from 'react-router-dom';
+import Header from '../main/Header';
+import ProfileSidebar from './ProfileSidebar';
+import UserInfo from './UserInfo';
 import './UserPage.css';
 
 function UserPage() {
+  const location = useLocation();
+  const userName = location.state?.username || "";
+
   return (
     <div>
       <Header />
       <div className="container">
         <div className="main-content">
-          <ProfileSidebar />
+          <ProfileSidebar userName={userName} />
           <div className="right-content">
-          <UserInfo />
+            <UserInfo userName={userName} />
+          </div>
         </div>
-        </div>
-        
       </div>
     </div>
   );
