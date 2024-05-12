@@ -7,8 +7,6 @@ function UserInfo() {
   const [solvesCount, setSolvesCount] = useState(0);
   const [totalValue, setTotalValue] = useState(0);
   const [userInfo, setUserInfo] = useState({
-    name: '',
-    joinDate: '',
     username: '' // username 상태 추가
   });
   const [ctfduserInfo, ctfdsetUserInfo] = useState({
@@ -50,13 +48,12 @@ function UserInfo() {
           console.error('사용자 데이터를 불러오는데 실패했습니다.');
         }
 
-        const postResponseUserInfo = await axios.post('https://pay1oad.com/api/auth/signin', {}, {
+        const postResponseUserInfo = await axios.post('http://pay1oad.com/api/auth/signin', {
           headers: { 'Authorization': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzIiwiaXNzIjoiUGF5MW9hZCBIb21lcGFnZSIsImlhdCI6MTcxMjQwNDI3OSwiZXhwIjoxNzEyNDkwNjc5fQ._uaCHew4ufXju6_WFpad0VBTZRKzh0TjZqp0dvA33I2Pjrnc1jOv3_w-8z6zJRsWRVyODkm_QCC3pFdADAQenA' }
         });
-        if (responseUserInfo.data.success && responseUserInfo.data.data) {
+        if (postResponseUserInfo.data.success && postResponseUserInfo.data.data) {
           setUserInfo({
-            name: postResponseUserInfo.data.data.name,
-            joinDate: postResponseUserInfo.data.data.date
+            name: postResponseUserInfo.data.data.username,
           });
         } else {
           console.error('사용자 데이터를 불러오는데 실패했습니다.');
@@ -89,7 +86,7 @@ function UserInfo() {
       case '정보':
         return (
           <div className="tab-content">
-            <div className="detail-item">{userInfo.username} 님의 가입 정보입니다.</div>
+            <div className="detail-item">{userInfo.name} 님의 가입 정보입니다.</div>
             <div className="detail-item">이름: {ctfduserInfo.name}</div>
             <div className="detail-item">가입 날짜: {ctfduserInfo.joinDate}</div>
           </div>

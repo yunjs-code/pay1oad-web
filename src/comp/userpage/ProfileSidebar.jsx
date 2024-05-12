@@ -1,21 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './ProfileSidebar.css';
 
 function ProfileSidebar() {
-  const profileData = {
-    nickname: '김가천',
+  const [profileData, setProfileData] = useState({
+    nickname: '', // Initially empty, will be updated from API
     ctfParticipated: 5,
     likesReceived: 20,
     bookmarksMade: 10,
-  };
+  });
+
+  useEffect(() => {
+    // Fetch the user data from the API
+    axios.get('http://pay1oad.com/ctfd/api/v1/users/2', {
+      headers: { 'Authorization': 'Bearer ctfd_58937b6c68c0adb28aeeaf169727ab380902d51dc7d4ca66feba05d5d3610f3c' } // Add a valid token here
+    })
+    .then(response => {
+      if (response.data && response.data.data) {
+        // Assuming the API returns data in this format
+        setProfileData(prevData => ({
+          ...prevData,
+          nickname: response.data.data.name // Update nickname with name from API
+        }));
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching user data:', error);
+    });
+  }, []);
 
   const handleProfileEdit = () => {
     console.log('프로필 수정 버튼이 클릭되었습니다.');
-    // Spring Boot 서버로 프로필 수정 요청 보내기
     axios.post('/api/edit-profile', {
       nickname: profileData.nickname
-      // 여기에 추가 데이터를 포함할 수 있습니다.
     })
     .then(response => console.log('프로필 수정 응답:', response))
     .catch(error => console.error('프로필 수정 에러:', error));
@@ -23,7 +40,6 @@ function ProfileSidebar() {
 
   const handlePromotionRequest = () => {
     console.log('승급 요청 버튼이 클릭되었습니다.');
-    // Spring Boot 서버로 승급 요청 보내기
     axios.post('/api/request-promotion', {
       nickname: profileData.nickname
     })
@@ -33,7 +49,6 @@ function ProfileSidebar() {
 
   const handleWithdrawal = () => {
     console.log('회원 탈퇴 버튼이 클릭되었습니다.');
-    // Spring Boot 서버로 회원 탈퇴 요청 보내기
     axios.post('/api/withdraw', {
       nickname: profileData.nickname
     })
@@ -45,7 +60,7 @@ function ProfileSidebar() {
     <aside className="profile-sidebar">
       <div className="profile-header">
         <div className="profile-picture"></div>
-        {profileData.nickname}
+        {profileData.nickname} {/* Display the fetched nickname */}
         <button className="edit-profile-button" onClick={handleProfileEdit}>프로필 수정</button>
       </div>
       <div className="profile-info">
