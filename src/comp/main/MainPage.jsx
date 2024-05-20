@@ -1,4 +1,4 @@
-import styled from "styled-components";
+ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import MainHome from "./MainHome";
 import MainClubNews from "./MainClubNews";
@@ -10,7 +10,7 @@ const Base = styled.div`
 `;
 
 const SliderObject = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   overflow: hidden;
 `;

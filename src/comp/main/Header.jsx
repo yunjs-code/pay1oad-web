@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { logoutUser } from '../../redux/actions/authActions'; // logoutUser 액션 가져오기
-
+import { logoutUser } from '../../redux/actions/authActions'; 
 const BackgroundColor = styled.div`
   background-color: #b4ccdf;
   height: 7vh;
@@ -52,11 +51,10 @@ const SearchContainer = styled.div`
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const dispatch = useDispatch(); // useDispatch를 호출하여 dispatch를 생성
+  const dispatch = useDispatch(); 
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [userName, setUserName] = useState("");
-  const [inputValue, setInputValue] = useState(""); // 'setInputSize'를 'setInputValue'로 수정
-
+  const [inputValue, setInputValue] = useState(""); 
 
   useEffect(() => {
     const loggedIn = location.state?.loggedIn || false;
@@ -65,7 +63,7 @@ const Header = () => {
       const usernameFromState = location.state?.username || "";
       setUserName(usernameFromState);
     } else {
-      setLoginSuccess(false);  // 'setLoginAuth'를 'setLoginSuccess'로 수정
+      setLoginSuccess(false);  
       setUserName("");
     }
   }, [location.state]);
@@ -73,7 +71,7 @@ const Header = () => {
 
   const handleLogout = () => {
     console.log("로그아웃 버튼 클릭");
-    dispatch(logoutUser()); // dispatch를 사용하여 로그아웃 액션을 디스패치
+    dispatch(logoutUser()); 
     setLoginSuccess(false);
     setUserName("");
     navigate("/");
@@ -110,7 +108,7 @@ const Header = () => {
           <TextCss>Security News</TextCss>
           <TextCss onClick={goToCtf}>CTF</TextCss>
         </LeftWrapper>
-        <SearchContainer>
+        <SearchContainer> 
           <input
               type="search"
               placeholder="웹사이트 검색..."
