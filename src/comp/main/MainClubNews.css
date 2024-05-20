@@ -1,0 +1,59 @@
+/* MainClubNews.css */
+.background-color {
+    background-color: #000000;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .name-wrapper {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  @media screen and (max-width: 760px) {
+    .name-wrapper {
+      height: 50px;
+    }
+  }
+  
+  .name-css {
+    height: 50px;
+    width: 300px;
+    background-color: yellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    font-size: 25px;
+  }
+  
+  @media screen and (max-width: 760px) {
+    .name-css {
+      height: 25px;
+      width: 150px;
+      font-size: 10px;
+    }
+  }
+  
+  .news-box-wrapper {
+    height: calc(100% - 100px);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .news-box {
+    background-color: white;
+    height: 80%;
+    width: 80%;
+    border-radius: 20px;
+  }
+  

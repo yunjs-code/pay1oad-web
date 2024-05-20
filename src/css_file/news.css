@@ -1,0 +1,287 @@
+.News {
+    margin-top: 10px;
+    text-align: center;
+    width: 100%;
+      height: 1000px;
+      /* height: auto; */
+      background-color: white;
+      /* background-color: blue; */
+  }
+  
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .News-header {
+    width: 100%;
+    height: 55px;
+    padding: 0;
+    margin: 0;
+    /* background-color: red; */
+  }
+  .News-header-bar {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 55px;
+    /* background-color: red; */
+    border-bottom: 2px red solid;
+  }
+  .News_logo_div {
+    width: 200px;
+    height: 100%;
+    max-height: 55px;
+    float: left;
+    padding: 0;
+  }
+  .News-logo {
+    width: auto;
+    height: 100%;
+    max-height: 55px;
+    float: left;
+    padding: 0;
+  }
+  .News-menu {
+    width: auto;
+    height: 100%;
+    max-height: 55px;
+    background-size: contain;
+    float: left;
+    padding: 0;
+  }
+  .News-menu-select {
+    color: black;
+    text-decoration-line: none;
+    font-size: 20px;
+  }
+  .News-menu_p_tag {
+    font-size: 26px;
+    display: inline;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  .News_login_div {
+    float: right;
+    width: auto;
+    height: 55px;
+    text-align: right;
+  }
+  .News_login_button {
+    font-size: 28px;
+    width: auto;
+    background-color: rgb(99, 32, 255);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    margin-top: 6px;
+    margin-right: 20px;
+    cursor: pointer;
+  }
+  
+  
+  
+  .News-left {
+    width: 15%;
+    height: 900px;
+    float: left;
+    /* background-color: yellow; */
+  }
+  
+  .News-right {
+    width: 15%;
+    height: 900px;
+    float: left;
+    /* background-color: grey; */
+  }
+  
+  .News-center {
+    width: 70%;
+    height: 900px;
+    float: left;
+    /* background-color: black; */
+  }
+  .News_card_container {
+    position: relative; /* 상대 위치 설정 */
+    display: flex;
+    width: 100%;
+    height: 300px;
+    padding: 20px;
+    margin-top: 10px;
+  }
+  
+  .more_card {
+    position: absolute; /* 절대 위치 설정 */
+    top: 0; /* 상단에서 0px 위치 */
+    right: 50px; /* 좌측에서 0px 위치 */
+    padding: 5px 10px; /* 패딩 설정 */
+    /* background-color: #4CAF50; */
+    color: black; /* 버튼 텍스트 색 */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  
+  .News_card_content {
+    width: 25%;
+    padding: 15px;
+    overflow: hidden;
+    z-index: 1;
+    
+  }
+  .News_card_content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px;
+    display: block;
+  }
+  .News_page_overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: 1s;
+  }
+  .News_page_overlay:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+  
+  .News_post {
+    width: 100%;
+    height: 600px;
+    /* background-color: blueviolet; */
+  }
+  .News_post_search_container {
+    display: flex;
+    align-items: center; /* 중앙 정렬 */
+    justify-content: center; /* 가운데 정렬 */
+    margin-top: 40px;
+  }
+  .News_post_search_bar {
+    width: 40%;
+    padding: 20px;
+    font-size: 20px;
+    border-radius: 30px;
+    border: 1px solid #51e3d4;
+    margin-right: 20px; /* 검색창과 버튼 사이의 간격 */
+  }
+  .News_post_search_bar:hover {
+    box-shadow: 0 0 .5px 1px #51e3d4;
+  }
+  .more_post {
+    padding: 5px 10px;
+    
+    color: black; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; /* 커서 스타일 */
+  }
+  .News_post_box {
+    width: 100%;
+    height: 100%;
+    max-height: 250px;
+    /* background-color: blue; */
+    padding-top: 40px;
+  }
+  
+  .News_post_box_classification {
+    width: 100%;
+    height: 20%;
+    /* background-color: red; */
+  }
+  .News_post_content_number {
+    width: 35%;
+    height: 100%;
+    /* background-color: blue; */
+    position: relative;
+    float: left;
+    font-size: 25px;
+    vertical-align: middle;
+  }
+  .News_post_content_title {
+    width: 35%;
+    height: 100%;
+    /* background-color: red; */
+    position: relative;
+    float: left;
+    font-size: 25px;
+  }
+  .News_post_content_writer {
+    width: 15%;
+    height: 100%;
+    /* background-color: grey; */
+    position: relative;
+    float: left;
+    font-size: 25px;
+  }
+  .News__post_content_write_time {
+    width: 15%;
+    height: 100%;
+    /* background-color: green; */
+    position: relative;
+    float: left;
+    font-size: 25px;
+  }
+  .News_post_box_division {
+    width: 100%;
+    height: 50px;
+    /* background-color: red; */
+  }
+  .News_post_box_division:hover {
+    width: 100%;
+    height: 50px;
+    /* background-color: rgba(15, 143, 247, 0.349); */
+    transition: 1s;
+    cursor: pointer;
+    /* background-color: red; */
+  }
+  
+  .News-footer {
+    width: 100%;
+    height: 45px;
+    clear: both;
+    /* background-color: red; */
+  }
+    
+  
+  .App-link {
+    color: #61dafb;
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .next_page {
+    margin-right: 25px;
+    margin-top: 25px;
+    cursor: pointer;
+  }
+  .previous_page {
+    margin-right: 25px;
+    margin-top: 25px;
+    cursor: pointer;
+  }
+  .writeTitle {
+    width: 100%;
+    height: 20px;
+  }
+  .writeContent {
+    width: 100%;
+    height: 500px;
+    font-size: 16px;
+  }

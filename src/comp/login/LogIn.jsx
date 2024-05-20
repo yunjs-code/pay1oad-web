@@ -30,6 +30,7 @@ const Box = styled.div`
     width: 350px;
   }
 `;
+
 const TextBoxWrapper = styled.div`
   height: 20%;
   width: 100%;
@@ -37,6 +38,7 @@ const TextBoxWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 const InputBoxWrapper = styled.div`
   height: 80%;
   width: 100%;
@@ -45,6 +47,7 @@ const InputBoxWrapper = styled.div`
   align-items: center;
   flex-direction: column;
 `;
+
 const Input = styled.input`
   background-color: transparent;
   height: 60px;
@@ -52,21 +55,25 @@ const Input = styled.input`
   margin-top: 20px;
   border-radius: 10px;
 `;
+
 const ButtonCss = styled.button`
   height: 60px;
   width: 400px;
   margin-bottom: 10px;
   border-radius: 10px;
 `;
+
 const SignIn = styled.span`
   height: 50%;
   width: 100%;
   color: blue;
 `;
+
 const Blank = styled.div`
   height: 30px;
   width: 100%;
 `;
+
 const Form = styled.div`
   width: 100%;
   height: 200px;
@@ -90,18 +97,15 @@ function LogIn() {
   }, [msg]);
 
   const goToSign = () => {
-    navigate("/SignIn");
+    navigate("/signin");
   };
 
-  //sql injection 예방
   const checkInput = (input) => {
-    //특수문자
     const specialChar = /[%=*><]/;
     if (specialChar.test(input)) {
       return false;
     }
 
-    //sql 문법
     const sqlWord = [
       "SELECT",
       "INSERT",
@@ -142,28 +146,19 @@ function LogIn() {
         passwd,
       };
 
-      console.log(data);
-      console.dir(data);
-
       axios
-      .post("http://pay1oad.com/api/auth/signin", data)
+        .post("http://pay1oad.com/api/auth/signin", data)
         .then((response) => {
-          console.log("서버 응답 데이터:", response);
           const { error, data } = response;
           if (error) {
-            // 에러가 있는 경우
-            console.log("에러");
-            setMsg(error); // 에러 메시지를 설정
+            setMsg(error);
           } else {
-            // 에러가 없는 경우
             const { accessToken, userInfo } = data;
-            console.log(accessToken);
             axios.defaults.headers.common[
               "Authorization"
             ] = `Bearer ${accessToken}`;
-            dispatch(loginUser(userInfo)); // 사용자 정보를 Redux store에 저장
-            navigate("/", { state: { loggedIn: true, username: data.username }});
-            // mainhome으로 이
+            dispatch(loginUser(userInfo));
+            navigate("/", { state: { loggedIn: true, username: data.username } });
           }
         })
         .catch((error) => {

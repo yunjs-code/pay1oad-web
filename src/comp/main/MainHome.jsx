@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const BackgroundColor = styled.div`
   background-color: #000000;
@@ -67,11 +67,50 @@ const TextFont = styled.div`
   }
 `;
 
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 const TextFont_2 = styled.div`
   color: white;
   font-size: 90px;
+  display: flex;
   @media screen and (max-width: 1010px) {
     font-size: 65px;
+  }
+  
+  span {
+    opacity: 0;
+    animation: ${fadeIn} 0.5s forwards;
+  }
+
+  span:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+  span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  span:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+  span:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+  span:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+  span:nth-child(6) {
+    animation-delay: 0.6s;
+  }
+  span:nth-child(7) {
+    animation-delay: 0.7s;
   }
 `;
 
@@ -119,11 +158,6 @@ const BoxContent = styled.p`
   font-size: 14px;
 `;
 
-function handleBoxClick(type) {
-  console.log(`${type} box clicked`);
-  // 기능 추가
-}
-
 function MainHome() {
   return (
     <BackgroundColor>
@@ -140,46 +174,13 @@ function MainHome() {
           </LeftTextArea>
         </LeftWrapper>
         <RightWrapper>
-          <TextFont_2>PAY1OAD</TextFont_2>
+          <TextFont_2>
+            {"PAY1OAD".split("").map((char, index) => (
+              <span key={index}>{char}</span>
+            ))}
+          </TextFont_2>
         </RightWrapper>
       </CenterWrapper>
-      <BoxContainer>
-        <Box onClick={() => handleBoxClick("System")}>
-          <BoxImage src="/path/to/system-image.jpg" alt="System" />
-          <BoxTitle>System</BoxTitle>
-          <BoxContent>
-            오버플로우, 권한상승 등의 취약점을 통해 운영체제를 장악하는 분야
-          </BoxContent>
-        </Box>
-        <Box onClick={() => handleBoxClick("Web")}>
-          <BoxImage src="/path/to/web-image.jpg" alt="Web" />
-          <BoxTitle>Web</BoxTitle>
-          <BoxContent>
-            웹 서비스 상의 취약점을 통해 웹 서버, 데이터베이스 서버를 장악하는 분야
-          </BoxContent>
-        </Box>
-        <Box onClick={() => handleBoxClick("Digital Forensics")}>
-          <BoxImage src="/path/to/digital-forensics-image.jpg" alt="Digital Forensics" />
-          <BoxTitle>Digital Forensics</BoxTitle>
-          <BoxContent>
-            파일 시스템 분석, 시스템 정보를 수집하여 디지털 증거를 수집 및 추구하는 분야
-          </BoxContent>
-        </Box>
-        <Box onClick={() => handleBoxClick("Reversing")}>
-          <BoxImage src="/path/to/reversing-image.jpg" alt="Reversing" />
-          <BoxTitle>Reversing</BoxTitle>
-          <BoxContent>
-            역공학을 통해 프로그램의 실행 흐름을 제어하거나 분석하는 분야
-          </BoxContent>
-        </Box>
-        <Box onClick={() => handleBoxClick("Project Team")}>
-          <BoxImage src="/path/to/project-team-image.jpg" alt="Project Team" />
-          <BoxTitle>Project Team</BoxTitle>
-          <BoxContent>
-            네트워크, 개발, 루트킷, 안드로이드 등 프로젝트 단위로 활동하는 팀
-          </BoxContent>
-        </Box>
-      </BoxContainer>
     </BackgroundColor>
   );
 }

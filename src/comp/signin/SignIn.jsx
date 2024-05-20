@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
-// import "./css/style.css";
+axios.defaults.baseURL = "http://pay1oad.com/api/";
 
-// 스타일 컴포넌트 설정
 const BackgroundColor = styled.div`
   background-color: #36567d;
   height: 100vh;
@@ -55,7 +54,7 @@ const Input = styled.input`
   border-radius: 10px;
 `;
 
-const TextWrapper = styled.div`
+const TextWrapper = styled.button`
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -73,37 +72,64 @@ const Text = styled.button`
   border: none;
 `;
 
-// 회원가입 컴포넌트
-function Join() {
-  const [id, setId] = useState("");
-  const [name, setName] = useState("");
-  const [pwd, setPwd] = useState("");
-  const [checkPwd, setCheckPwd] = useState("");
-  const [email, setEmail] = useState("");
-
+function SignInMain() {
   const navigate = useNavigate();
+  const [inputs, setInputs] = useState({
+    id: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-  const changeId = (event) => {
-    setId(event.target.value);
+  const goToMain = () => {
+    navigate("/");
   };
 
-  const changeName = (event) => {
-    setName(event.target.value);
+  const handleNextClick = async () => {
+    const { id, email, password, confirmPassword } = inputs;
+    if (!id) {
+      return alert("ID를 입력하세요.");
+    } else if (!checkInput(id)) {
+      return alert("ID에 입력할 수 없는 특수문자나 단어가 포함되어 있습니다.");
+    } else if (!email) {
+      return alert("email을 입력하세요");
+    } else if (!checkInput(email)) {
+      return alert("email에 입력할 수 없는 특수문자나 단어가 포함되어 있습니다.");
+    } else if (!validateEmail(email)) {
+      alert("올바른 이메일 주소를 입력하세요.");
+    } else if (!password) {
+      return alert("password를 입력해주세요");
+    } else if (!checkInput(password)) {
+      return alert("password에 입력할 수 없는 특수문자나 단어가 포함되어 있습니다.");
+    } else if (password.length < 8) {
+      alert("비밀번호는 8자리 이상이어야 합니다.");
+    } else if (!passwordRegex.test(password)) {
+      alert("비밀번호는 영문자, 숫자, 특수문자를 모두 포함해야 합니다.");
+    } else if (!confirmPassword) {
+      return alert("password를 다시 한번 입력해 주세요");
+    } else if (!checkInput(confirmPassword)) {
+      return alert("confirmPassword에 입력할 수 없는 특수문자나 단어가 포함되어 있습니다.");
+    } else if (password !== confirmPassword) {
+      alert("비밀번호가 일치하지 않습니다.");
+    } else {
+      const userData = {
+        username: id,
+        email: email,
+        passwd: password,
+      };
+      try {
+        const response = await axios.post(
+          "/auth/signup", 
+          userData, 
+          { headers: { "Content-Type": "application/json" }}
+        );
+        navigate("/nickname");
+      } catch (error) {
+        alert("회원가입 과정에서 문제가 발생했습니다.");
+      }
+    }
   };
 
-  const changePwd = (event) => {
-    setPwd(event.target.value);
-  };
-
-  const changeCheckPwd = (event) => {
-    setCheckPwd(event.target.value);
-  };
-
-  const changeEmail = (event) => {
-    setEmail(event.target.value);
-  };
-
-  // SQL 인젝션 방어 및 입력 유효성 검사 함수들
   const checkInput = (input) => {
     const specialChar = /[%=*><]/;
     if (specialChar.test(input)) {
@@ -130,84 +156,17 @@ function Join() {
 
   const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
+
   const handlePasswordPaste = (e) => {
     e.preventDefault();
     alert("비밀번호는 복사 붙여넣기 할 수 없습니다.");
-  };
-
-  // 아이디 중복 체크
-  const checkIdDuplicate = async () => {
-    try {
-      const resp = await axios.get("http://localhost:3000/user", { params: { id: id } });
-      console.log("[Join.js] checkIdDuplicate() success :D");
-      console.log(resp.data);
-
-      if (resp.status === 200) {
-        alert("사용 가능한 아이디입니다.");
-      }
-    } catch (err) {
-      console.log("[Join.js] checkIdDuplicate() error :<");
-      console.log(err);
-
-      const resp = err.response;
-      if (resp.status === 400) {
-        alert(resp.data);
-      }
-    }
-  };
-
-  // 회원가입
-  const join = async () => {
-    if (!id) {
-      return alert("ID를 입력하세요.");
-    } else if (!checkInput(id)) {
-      return alert("ID에 입력할 수 없는 특수문자나 단어가 포함되어 있습니다.");
-    } else if (!email) {
-      return alert("email을 입력하세요");
-    } else if (!checkInput(email)) {
-      return alert("email에 입력할 수 없는 특수문자나 단어가 포함되어 있습니다.");
-    } else if (!validateEmail(email)) {
-      alert("올바른 이메일 주소를 입력하세요.");
-    } else if (!pwd) {
-      return alert("password를 입력해주세요");
-    } else if (!checkInput(pwd)) {
-      return alert("password에 입력할 수 없는 특수문자나 단어가 포함되어 있습니다.");
-    } else if (pwd.length < 8) {
-      alert("비밀번호는 8자리 이상이어야 합니다.");
-    } else if (!passwordRegex.test(pwd)) {
-      alert("비밀번호는 영문자, 숫자, 특수문자를 모두 포함해야 합니다.");
-    } else if (!checkPwd) {
-      return alert("password를 다시 한번 입력해 주세요");
-    } else if (!checkInput(checkPwd)) {
-      return alert("confirmPassword에 입력할 수 없는 특수문자나 단어가 포함되어 있습니다.");
-    } else if (pwd !== checkPwd) {
-      alert("비밀번호가 일치하지 않습니다.");
-    } else {
-      const req = {
-        id: id,
-        name: name,
-        pwd: pwd,
-        checkPwd: checkPwd,
-        email: email,
-      };
-
-      try {
-        const resp = await axios.post("http://localhost:3000/user/join", req);
-        console.log("[Join.js] join() success :D");
-        console.log(resp.data);
-
-        alert(resp.data.id + "님 회원가입을 축하드립니다 🎊");
-        navigate("/login");
-      } catch (err) {
-        console.log("[Join.js] join() error :<");
-        console.log(err);
-
-        const resp = err.response;
-        if (resp.status === 400) {
-          alert(resp.data);
-        }
-      }
-    }
   };
 
   return (
@@ -218,44 +177,38 @@ function Join() {
           <Input
             placeholder="ID"
             name="id"
-            value={id}
-            onChange={changeId}
-          />
-          <Input
-            placeholder="이름"
-            name="name"
-            value={name}
-            onChange={changeName}
+            value={inputs.id}
+            onChange={handleInputChange}
           />
           <Input
             placeholder="email"
             name="email"
-            value={email}
-            onChange={changeEmail}
+            value={inputs.email}
+            onChange={handleInputChange}
           />
           <Input
             placeholder="password"
-            name="pwd"
+            name="password"
             type="password"
-            value={pwd}
-            onChange={changePwd}
+            value={inputs.password}
+            onChange={handleInputChange}
             onPaste={handlePasswordPaste}
           />
           <Input
             placeholder="confirm password"
-            name="checkPwd"
+            name="confirmPassword"
             type="password"
-            value={checkPwd}
-            onChange={changeCheckPwd}
+            value={inputs.confirmPassword}
+            onChange={handleInputChange}
           />
         </InputBoxWrapper>
         <TextWrapper>
-          <Text onClick={() => navigate(-1)}>이전</Text>
-          <Text onClick={join}>회원가입</Text>
+          <Text onClick={goToMain}>이전</Text>
+          <Text onClick={handleNextClick}>다음</Text>
         </TextWrapper>
       </Box>
     </BackgroundColor>
   );
 }
 
-export default Join;
+export default SignInMain;
