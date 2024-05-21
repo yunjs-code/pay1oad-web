@@ -1,0 +1,73 @@
+.top-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 10vh;
+}
+
+.top-left {
+  position: relative;
+  width: 65%; /* 기존 70%에서 조금 줄여서 양쪽에 공간 확보 */
+  height: 400px; /* 이미지 높이 설정 */
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.top-left img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+
+.top-left h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.top-right {
+  width: 30%; /* 기존 25%에서 조금 넓혀서 양쪽에 공간 확보 */
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 수직 중앙 정렬 */
+  justify-content: center; /* 수평 중앙 정렬 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.top-right h3 {
+  margin: 0 0 10px 0;
+}
+
+.top-right ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%; /* 리스트 항목도 중앙 정렬을 위해 전체 너비 사용 */
+}
+
+.top-right li {
+  margin: 10px 0;
+}
+
+.top-right a {
+  text-decoration: none;
+  color: #000;
+}
+
+.top-right a:hover {
+  color: #007bff;
+}

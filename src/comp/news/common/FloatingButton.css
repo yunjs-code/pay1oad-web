@@ -1,0 +1,52 @@
+.floating-button-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.floating-button {
+  background-color: #ff7f50; /* 버튼의 색상 */
+  border: none;
+  border-radius: 20px; /* 둥근 직사각형으로 설정 */
+  width: 100px; /* 버튼 너비 */
+  height: 56px; /* 버튼 높이 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.3s; /* 트랜지션 추가 */
+}
+
+.floating-button img {
+  width: 24px;
+  height: 24px;
+}
+
+.floating-button:hover {
+  transform: scale(1.1);
+}
+
+.floating-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  opacity: 0;
+  transform: translateY(10px); /* 초기 위치를 약간 아래로 설정 */
+  transition: opacity 0.3s, transform 0.3s; /* 트랜지션 추가 */
+}
+
+.floating-buttons.open {
+  opacity: 1;
+  transform: translateY(0); /* 최종 위치로 이동 */
+}
+
+.floating-buttons .floating-button {
+  margin-top: 10px;
+  width: 100px; /* 버튼 너비 */
+  height: 56px; /* 버튼 높이 */
+  border-radius: 20px; /* 둥근 직사각형으로 설정 */
+}

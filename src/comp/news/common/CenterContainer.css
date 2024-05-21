@@ -1,0 +1,19 @@
+.center-container {
+    width: 60%;
+    height: 10vh;
+    background-color: #ccc;
+    border-radius: 5px;
+    margin-bottom: 2vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .center-container input {
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
