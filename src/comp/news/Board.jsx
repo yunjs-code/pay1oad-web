@@ -1,6 +1,5 @@
-// Board.js
 import React, { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import MainContainer from './common/MainContainer';
 import TopContainer from './common/TopContainer';
 import MiddleContainer from './common/MiddleContainer';
@@ -8,9 +7,14 @@ import FloatingButton from './common/FloatingButton';
 import PostDetail from './common/PostDetail';
 import WritePage from './common/WritePage';
 import AnnouncementDetail from './common/AnnouncementDetail';
+import Header from '../main/Header';
 import './Board.css';
 
 const Board = () => {
+  const location = useLocation();
+  const loggedIn = location.state?.loggedIn || false;
+  const username = location.state?.username || "";
+
   const [posts, setPosts] = useState([
     { id: 1, title: '게시글 1', content: '게시글 내용 1', category: '웹', postType: '게시글', imageUrl: 'path/to/default-image.jpg', timestamp: '2023-05-20 14:30', views: 120 },
     { id: 2, title: '게시글 2', content: '게시글 내용 2', category: '시스템', postType: '공지', imageUrl: 'path/to/default-image.jpg', timestamp: '2023-05-21 09:20', views: 85 },
@@ -37,18 +41,21 @@ const Board = () => {
   };
 
   return (
-    <Routes>
-      <Route path="/" element={
-        <MainContainer setSearchTerm={setSearchTerm} posts={posts} searchTerm={searchTerm}>
-          <TopContainer />
-          <MiddleContainer announcements={announcements} />
-          <FloatingButton />
-        </MainContainer>
-      } />
-      <Route path="/post/:id" element={<PostDetail posts={posts} updatePost={updatePost} deletePost={deletePost} />} />
-      <Route path="/announcement/:id" element={<AnnouncementDetail announcements={announcements} />} />
-      <Route path="/write" element={<WritePage addPost={addPost} />} />
-    </Routes>
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={
+          <MainContainer setSearchTerm={setSearchTerm} posts={posts} searchTerm={searchTerm}>
+            <TopContainer />
+            <MiddleContainer announcements={announcements} />
+            <FloatingButton />
+          </MainContainer>
+        } />
+        <Route path="/post/:id" element={<PostDetail posts={posts} updatePost={updatePost} deletePost={deletePost} />} />
+        <Route path="/announcement/:id" element={<AnnouncementDetail announcements={announcements} />} />
+        <Route path="/write" element={<WritePage addPost={addPost} />} />
+      </Routes>
+    </>
   );
 };
 

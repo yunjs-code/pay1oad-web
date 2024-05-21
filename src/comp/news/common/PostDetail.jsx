@@ -31,7 +31,7 @@ const PostDetail = ({ posts, updatePost, deletePost }) => {
 
   const handleDelete = () => {
     deletePost(post.id);
-    navigate('/');
+    navigate('/board');
   };
 
   if (!post) {

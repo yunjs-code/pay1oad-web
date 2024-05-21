@@ -52,9 +52,16 @@ const Header = () => {
     window.location.href = "http://pay1oad.com:50001/";
   };
 
+  const goToHome = () => {
+    navigate("/");
+  };
+
   return (
     <div className="header">
       <div className="left-wrapper">
+        <div className="logo" onClick={goToHome}> {/* 로고 클릭 시 홈으로 이동 */}
+          <img src="" alt="Logo" className="logo-image" />
+        </div>
         <div className="text-css" onClick={goToClubNews}>Club News</div>
         <div className="text-css">Security News</div>
         <div className="text-css" onClick={goToCtf}>CTF</div>
@@ -67,6 +74,7 @@ const Header = () => {
           </>
         ) : (
           <>
+            <div className="text-css" onClick={goToSign}>Sign IN</div>
             <div className="text-css" onClick={goToLogIn}>LOG IN</div>
           </>
         )}
