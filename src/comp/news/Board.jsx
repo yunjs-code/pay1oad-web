@@ -45,9 +45,9 @@ const Board = () => {
           <FloatingButton />
         </MainContainer>
       } />
-      <Route path="/post/:id" element={<PostDetail posts={posts} updatePost={updatePost} deletePost={deletePost} />} />
-      <Route path="/announcement/:id" element={<AnnouncementDetail announcements={announcements} />} />
-      <Route path="/write" element={<WritePage addPost={addPost} />} />
+      <Route path="/board/post/:id" element={<PostDetail posts={posts} updatePost={updatePost} deletePost={deletePost} />} />
+      <Route path="/board/announcement/:id" element={<AnnouncementDetail announcements={announcements} />} />
+      <Route path="/board/write" element={<WritePage addPost={addPost} />} />
     </Routes>
   );
 };

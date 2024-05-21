@@ -12,7 +12,7 @@ const FloatingButton = () => {
   };
 
   const handleWriteClick = () => {
-    navigate('/write');
+    navigate('/board/write');
   };
 
   return (
