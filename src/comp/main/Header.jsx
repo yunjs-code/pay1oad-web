@@ -48,11 +48,6 @@ const Header = () => {
     navigate("/UserPage", { state: { loggedIn: true, username: userName } });
   };
 
-  const handleSearch = () => {
-    console.log("검색 버튼 클릭");
-    // 검색 기능 구현 필요
-  };
-
   const goToCtf = () => {
     window.location.href = "http://pay1oad.com:50001/";
   };

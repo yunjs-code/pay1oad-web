@@ -1,12 +1,13 @@
+// Board.js
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import MainContainer from '../common/MainContainer';
-import TopContainer from '../common/TopContainer';
-import MiddleContainer from '../common/MiddleContainer';
-import FloatingButton from '../common/FloatingButton';
-import PostDetail from '../common/PostDetail';
-import WritePage from './WritePage';
-import AnnouncementDetail from '../announcements/AnnouncementDetail';
+import { Routes, Route } from 'react-router-dom';
+import MainContainer from './common/MainContainer';
+import TopContainer from './common/TopContainer';
+import MiddleContainer from './common/MiddleContainer';
+import FloatingButton from './common/FloatingButton';
+import PostDetail from './common/PostDetail';
+import WritePage from './common/WritePage';
+import AnnouncementDetail from './common/AnnouncementDetail';
 import './Board.css';
 
 const Board = () => {
@@ -36,20 +37,18 @@ const Board = () => {
   };
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={
-          <MainContainer setSearchTerm={setSearchTerm} posts={posts} searchTerm={searchTerm}>
-            <TopContainer />
-            <MiddleContainer announcements={announcements} />
-            <FloatingButton/>
-          </MainContainer>
-        } />
-        <Route path="/post/:id" element={<PostDetail posts={posts} updatePost={updatePost} deletePost={deletePost} />} />
-        <Route path="/announcement/:id" element={<AnnouncementDetail announcements={announcements} />} />
-        <Route path="/write" element={<WritePage addPost={addPost} />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={
+        <MainContainer setSearchTerm={setSearchTerm} posts={posts} searchTerm={searchTerm}>
+          <TopContainer />
+          <MiddleContainer announcements={announcements} />
+          <FloatingButton />
+        </MainContainer>
+      } />
+      <Route path="/post/:id" element={<PostDetail posts={posts} updatePost={updatePost} deletePost={deletePost} />} />
+      <Route path="/announcement/:id" element={<AnnouncementDetail announcements={announcements} />} />
+      <Route path="/write" element={<WritePage addPost={addPost} />} />
+    </Routes>
   );
 };
 
