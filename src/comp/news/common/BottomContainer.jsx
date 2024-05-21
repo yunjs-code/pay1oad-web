@@ -17,7 +17,7 @@ const BottomContainer = ({ posts, searchTerm, selectedMainCategory, selectedSubC
   return (
     <div className="bottom-container">
       {filteredPosts.map(post => (
-        <Link key={post.id} to={`/post/${post.id}`} className="bottom-item">
+        <Link key={post.id} to={`/board/post/${post.id}`} className="bottom-item">
           <img src={post.imageUrl} alt={post.title} className="post-image" />
           <div className="post-info">
             <span className="post-category">{post.category}</span>

@@ -9,7 +9,7 @@ const MiddleContainer = ({ announcements }) => {
         {announcements.map((announcement, index) => (
           <Link
             key={index}
-            to={`/announcement/${announcement.id}`}
+            to={`/board/announcement/${announcement.id}`}
             className="announcement"
           >
             {announcement.title}

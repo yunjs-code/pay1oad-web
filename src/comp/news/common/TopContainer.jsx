@@ -26,7 +26,7 @@ const TopContainer = () => {
   return (
     <div className="top-container">
       <div className="top-left">
-        <Link to={`/post/${postToShow.id}`}>
+        <Link to={`/board/post/${postToShow.id}`}>
           <img src={postToShow.image} alt={postToShow.title} />
           <div className="overlay">
             <h2>{postToShow.title}</h2>
@@ -42,7 +42,7 @@ const TopContainer = () => {
               onMouseEnter={() => setHoveredPostIndex(index)}
               onMouseLeave={() => setHoveredPostIndex(null)}
             >
-              <Link to={`/post/${post.id}`}>{post.title}</Link>
+              <Link to={`/board/post/${post.id}`}>{post.title}</Link>
             </li>
           ))}
         </ul>

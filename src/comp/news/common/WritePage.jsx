@@ -16,7 +16,7 @@ const WritePage = ({ addPost }) => {
     const imageUrl = image ? URL.createObjectURL(image) : defaultImage;
     const newPost = { title, content, category, postType, imageUrl };
     addPost(newPost);
-    navigate('/');
+    navigate('/board');
   };
 
   const handleImageChange = (e) => {

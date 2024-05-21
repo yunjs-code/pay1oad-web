@@ -68,7 +68,6 @@ const Header = () => {
         ) : (
           <>
             <div className="text-css" onClick={goToLogIn}>LOG IN</div>
-            <div className="text-css" onClick={goToSign}>SIGN IN</div>
           </>
         )}
       </div>

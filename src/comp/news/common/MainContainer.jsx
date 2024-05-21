@@ -11,9 +11,7 @@ const MainContainer = ({ children, setSearchTerm, posts, searchTerm }) => {
   const [selectedSubCategory, setSelectedSubCategory] = useState('ALL');
   const navigate = useNavigate();
 
-  const handleWriteClick = () => {
-    navigate('/write');
-  };
+  
 
   const handleMainCategoryClick = (category) => {
     setSelectedMainCategory(category);

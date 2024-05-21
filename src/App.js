@@ -22,7 +22,6 @@ function App() {
             <Route path="/nickname" element={<NickName />} />
             <Route path="/tos" element={<ToS />} />
             <Route path="/userpage" element={<UserPage />} />
-            
             <Route path="/board/*" element={<Board />} /> {/* 추가된 부분 */}
           </Routes>
         </BrowserRouter>
