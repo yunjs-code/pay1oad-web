@@ -1,17 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BottomContainer from './BottomContainer';
 import './MainContainer.css';
+import axios from 'axios';
+
+const BASE_URL = 'http://pay1oad.com';  // 기본 URL 설정
 
 const mainCategories = ['전체글', '공지', '게시글', '질문'];
 const subCategories = ['ALL', '웹', '시스템', '리버싱', '암호학', '포렌식'];
 
-const MainContainer = ({ children, setSearchTerm, posts, searchTerm }) => {
+const MainContainer = ({ children, setSearchTerm, searchTerm }) => {
   const [selectedMainCategory, setSelectedMainCategory] = useState('전체글');
   const [selectedSubCategory, setSelectedSubCategory] = useState('ALL');
+  const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
-  
+  useEffect(() => {
+    // 게시글 목록을 가져오는 API 호출
+    axios.get(`${BASE_URL}/board/list`)
+      .then(response => {
+        setPosts(response.data);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the posts!", error);
+      });
+  }, []);
 
   const handleMainCategoryClick = (category) => {
     setSelectedMainCategory(category);

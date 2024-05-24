@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './WritePage.css';
+import axios from 'axios';
+
+const BASE_URL = 'http://pay1oad.com';  // BASE_URL을 pay1oad.com으로 설정
 
 const WritePage = ({ addPost }) => {
   const [title, setTitle] = useState('');
@@ -15,8 +18,20 @@ const WritePage = ({ addPost }) => {
   const handleSubmit = () => {
     const imageUrl = image ? URL.createObjectURL(image) : defaultImage;
     const newPost = { title, content, category, postType, imageUrl };
-    addPost(newPost);
-    navigate('/board');
+
+    // 게시글 작성 API 호출
+    axios.post(`${BASE_URL}/board/write`, newPost, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        addPost(response.data);
+        navigate('/board');
+      })
+      .catch(error => {
+        console.error("There was an error creating the post!", error);
+      });
   };
 
   const handleImageChange = (e) => {

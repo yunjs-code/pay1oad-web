@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import MainContainer from './common/MainContainer';
 import TopContainer from './common/TopContainer';
@@ -8,36 +8,77 @@ import PostDetail from './common/PostDetail';
 import WritePage from './common/WritePage';
 import AnnouncementDetail from './common/AnnouncementDetail';
 import Header from '../main/Header';
+import axios from 'axios';
 import './Board.css';
+
+const BASE_URL = 'http://pay1oad.com';  // HTTP로 변경
 
 const Board = () => {
   const location = useLocation();
   const loggedIn = location.state?.loggedIn || false;
   const username = location.state?.username || "";
 
-  const [posts, setPosts] = useState([
-    { id: 1, title: '게시글 1', content: '게시글 내용 1', category: '웹', postType: '게시글', imageUrl: 'path/to/default-image.jpg', timestamp: '2023-05-20 14:30', views: 120 },
-    { id: 2, title: '게시글 2', content: '게시글 내용 2', category: '시스템', postType: '공지', imageUrl: 'path/to/default-image.jpg', timestamp: '2023-05-21 09:20', views: 85 },
-    // 다른 초기 게시글들
-  ]);
-  const [announcements, setAnnouncements] = useState([
-    { id: 1, title: '공지사항 1: 집에 좀 보내주세요', content: '공지사항 내용 1: 집에 좀 보내주세요.' },
-  ]);
+  const [posts, setPosts] = useState([]);
+  const [announcements, setAnnouncements] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
+  useEffect(() => {
+    // 게시글 목록을 가져오는 API 호출
+    axios.get(`${BASE_URL}/board/list`)
+      .then(response => {
+        const data = Array.isArray(response.data) ? response.data : [];
+        setPosts(data);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the posts!", error);
+      });
+
+    // 공지사항 목록을 가져오는 API 호출
+    axios.get(`${BASE_URL}/board/list`)
+      .then(response => {
+        const data = Array.isArray(response.data) ? response.data : [];
+        const announcements = data.filter(post => post.postType === '공지');
+        setAnnouncements(announcements);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the announcements!", error);
+      });
+  }, []);
+
   const addPost = (newPost) => {
-    setPosts([...posts, { ...newPost, id: posts.length + 1, timestamp: new Date().toLocaleString(), views: 0 }]);
-    if (newPost.postType === '공지') {
-      setAnnouncements([...announcements, { id: announcements.length + 1, title: newPost.title, content: newPost.content }]);
-    }
+    // 게시글 작성 API 호출
+    axios.post(`${BASE_URL}/board/write`, newPost)
+      .then(response => {
+        setPosts([...posts, response.data]);
+        if (newPost.postType === '공지') {
+          setAnnouncements([...announcements, response.data]);
+        }
+      })
+      .catch(error => {
+        console.error("There was an error creating the post!", error);
+      });
   };
 
   const updatePost = (updatedPost) => {
-    setPosts(posts.map(post => post.id === updatedPost.id ? updatedPost : post));
+    // 게시글 수정 API 호출
+    axios.patch(`${BASE_URL}/board/${updatedPost.id}/update`, updatedPost)
+      .then(response => {
+        setPosts(posts.map(post => post.id === updatedPost.id ? response.data : post));
+      })
+      .catch(error => {
+        console.error("There was an error updating the post!", error);
+      });
   };
 
   const deletePost = (id) => {
-    setPosts(posts.filter(post => post.id !== id));
+    // 게시글 삭제 API 호출
+    axios.delete(`${BASE_URL}/board/${id}/delete`, { data: { password: 'password' } }) // 비밀번호는 적절히 수정 필요
+      .then(() => {
+        setPosts(posts.filter(post => post.id !== id));
+      })
+      .catch(error => {
+        console.error("There was an error deleting the post!", error);
+      });
   };
 
   return (
@@ -52,7 +93,7 @@ const Board = () => {
           </MainContainer>
         } />
         <Route path="/post/:id" element={<PostDetail posts={posts} updatePost={updatePost} deletePost={deletePost} />} />
-        <Route path="/announcement/:id" element={<AnnouncementDetail announcements={announcements} />} />
+        <Route path="/announcement/:id" element={<AnnouncementDetail />} />
         <Route path="/write" element={<WritePage addPost={addPost} />} />
       </Routes>
     </>
