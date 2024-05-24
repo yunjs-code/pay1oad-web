@@ -33,7 +33,7 @@ const Board = () => {
         console.error("There was an error fetching the posts!", error);
       });
 
-    // 공지사항 목록을 가져오는 API 호출
+    // 공지사항 목록을 가져오는 API 호출11
     axios.get(`${BASE_URL}/board/list`)
       .then(response => {
         const data = Array.isArray(response.data) ? response.data : [];
