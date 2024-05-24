@@ -10,7 +10,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [userName, setUserName] = useState("");
-  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     const loggedIn = location.state?.loggedIn || false;
@@ -33,19 +32,19 @@ const Header = () => {
   };
 
   const goToSign = () => {
-    navigate("/SignIn");
+    navigate("/signin");
   };
 
   const goToLogIn = () => {
-    navigate("/LogIn");
+    navigate("/login");
   };
 
   const goToClubNews = () => {
-    navigate("/board"); // 게시판 경로로 변경
+    navigate("/board");
   };
 
   const goToUserPage = () => {
-    navigate("/UserPage", { state: { loggedIn: true, username: userName } });
+    navigate("/userpage", { state: { loggedIn: true, username: userName } });
   };
 
   const goToCtf = () => {

@@ -9,7 +9,7 @@ const BottomContainer = ({ searchTerm, selectedMainCategory, selectedSubCategory
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    // 게시글 목록을 가져오는 API 호출
+    // 게시글 목록을 가져오는 API 호출 ----
     axios.get(`${BASE_URL}/board/list`)
       .then(response => {
         const data = Array.isArray(response.data) ? response.data : [];
