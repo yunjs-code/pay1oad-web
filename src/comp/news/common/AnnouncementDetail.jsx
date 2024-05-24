@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const BASE_URL = 'http://pay1oad.com';  // 기본 URL 설정
+const BASE_URL = 'http://pay1oad.com/api';  // 기본 URL 설정
 
 const AnnouncementDetail = () => {
   const { id } = useParams();

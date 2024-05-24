@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './TopContainer.css';
 
-const BASE_URL = 'http://pay1oad.com';  // HTTP로 변경
+const BASE_URL = 'http://pay1oad.com/api';  // HTTP로 변경
 
 const TopContainer = () => {
   const [popularPosts, setPopularPosts] = useState([]);

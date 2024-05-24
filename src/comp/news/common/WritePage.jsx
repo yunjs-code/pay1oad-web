@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './WritePage.css';
 import axios from 'axios';
 
-const BASE_URL = 'http://pay1oad.com';  // BASE_URL을 pay1oad.com으로 설정
+const BASE_URL = 'http://pay1oad.com/api';  // BASE_URL을 pay1oad.com으로 설정
 
 const WritePage = ({ addPost }) => {
   const [title, setTitle] = useState('');

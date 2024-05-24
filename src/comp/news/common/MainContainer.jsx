@@ -4,7 +4,7 @@ import BottomContainer from './BottomContainer';
 import './MainContainer.css';
 import axios from 'axios';
 
-const BASE_URL = 'http://pay1oad.com';  // 기본 URL 설정
+const BASE_URL = 'http://pay1oad.com/api';  // 기본 URL 설정
 
 const mainCategories = ['전체글', '공지', '게시글', '질문'];
 const subCategories = ['ALL', '웹', '시스템', '리버싱', '암호학', '포렌식'];

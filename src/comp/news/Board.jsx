@@ -11,7 +11,7 @@ import Header from '../main/Header';
 import axios from 'axios';
 import './Board.css';
 
-const BASE_URL = 'http://pay1oad.com';  // HTTP로 변경
+const BASE_URL = 'http://pay1oad.com/api';  // HTTP로 변경
 
 const Board = () => {
   const location = useLocation();

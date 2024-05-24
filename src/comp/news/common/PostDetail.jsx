@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';  // axios를 직접 임포트
 import './PostDetail.css';
 
-const BASE_URL = 'http://pay1oad.com';  // 기본 URL 설정
+const BASE_URL = 'http://pay1oad.com/api';  // 기본 URL 설정
 
 const PostDetail = ({ updatePost, deletePost }) => {
   const { id } = useParams();
