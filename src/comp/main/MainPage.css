@@ -1,24 +1,31 @@
 /* MainPage.css */
-.base {
-    width: 100%;
-    height: 100vh;
-  }
-  
-  .slider-object {
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-  }
-  
-  .green-box {
-    background-color: lightgreen;
-  }
-  
-  .grey-box {
-    background-color: grey;
-  }
-  
-  .orange-box {
-    background-color: orange;
-  }
-  
+
+.Base {
+  width: 100%;
+  height: 100vh;
+  overflow-y: scroll; /* overflow-y: auto 에서 scroll로 변경 */
+  /* scroll-snap-type: y mandatory; */ /* scroll-snap-type 속성 제거 */
+  scroll-behavior: smooth; /* 스크롤을 부드럽게 유지 */
+}
+
+.SliderObject {
+  width: 100%;
+  height: 100vh;
+  /* scroll-snap-align: start; */ /* scroll-snap-align 속성 제거 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.GreenBox {
+  background-color: lightgreen;
+}
+
+.GreyBox {
+  background-color: grey;
+}
+
+.OrangeBox {
+  background-color: orange;
+}

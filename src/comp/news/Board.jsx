@@ -1,102 +1,60 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import MainContainer from './common/MainContainer';
-import TopContainer from './common/TopContainer';
-import MiddleContainer from './common/MiddleContainer';
-import FloatingButton from './common/FloatingButton';
-import PostDetail from './common/PostDetail';
-import WritePage from './common/WritePage';
-import AnnouncementDetail from './common/AnnouncementDetail';
-import Header from '../main/Header';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './Board.css';
-
-const BASE_URL = 'http://pay1oad.com/api';  // HTTP로 변경
 
 const Board = () => {
-  const location = useLocation();
-  const loggedIn = location.state?.loggedIn || false;
-  const username = location.state?.username || "";
-
-  const [posts, setPosts] = useState([]);
-  const [announcements, setAnnouncements] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // 게시글 목록을 가져오는 API 호출
-    axios.get(`${BASE_URL}/board/list`)
-      .then(response => {
-        const data = Array.isArray(response.data) ? response.data : [];
-        setPosts(data);
-      })
-      .catch(error => {
-        console.error("There was an error fetching the posts!", error);
-      });
+    const fetchData = async () => {
+      const token = localStorage.getItem('token');
+      console.log('토큰:', token); // 토큰이 올바르게 저장되고 있는지 확인
 
-    // 공지사항 목록을 가져오는 API 호출11
-    axios.get(`${BASE_URL}/board/list`)
-      .then(response => {
-        const data = Array.isArray(response.data) ? response.data : [];
-        const announcements = data.filter(post => post.postType === '공지');
-        setAnnouncements(announcements);
-      })
-      .catch(error => {
-        console.error("There was an error fetching the announcements!", error);
-      });
+      if (!token) {
+        setError('토큰이 없습니다. 로그인 해주세요.');
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await axios.get('http://pay1oad.com/api/board/list', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        console.log('응답 데이터:', response.data); // 응답 데이터를 출력
+        setData(response.data);
+      } catch (err) {
+        console.error('에러 응답:', err.response); // 에러 응답을 출력
+        setError(err.response ? err.response.data.message : err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  const addPost = (newPost) => {
-    // 게시글 작성 API 호출
-    axios.post(`${BASE_URL}/board/write`, newPost)
-      .then(response => {
-        setPosts([...posts, response.data]);
-        if (newPost.postType === '공지') {
-          setAnnouncements([...announcements, response.data]);
-        }
-      })
-      .catch(error => {
-        console.error("There was an error creating the post!", error);
-      });
-  };
-
-  const updatePost = (updatedPost) => {
-    // 게시글 수정 API 호출
-    axios.patch(`${BASE_URL}/board/${updatedPost.id}/update`, updatedPost)
-      .then(response => {
-        setPosts(posts.map(post => post.id === updatedPost.id ? response.data : post));
-      })
-      .catch(error => {
-        console.error("There was an error updating the post!", error);
-      });
-  };
-
-  const deletePost = (id) => {
-    // 게시글 삭제 API 호출
-    axios.delete(`${BASE_URL}/board/${id}/delete`, { data: { password: 'password' } }) // 비밀번호는 적절히 수정 필요
-      .then(() => {
-        setPosts(posts.filter(post => post.id !== id));
-      })
-      .catch(error => {
-        console.error("There was an error deleting the post!", error);
-      });
-  };
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
-    <>
-      <Header />
-      <Routes>
-        <Route path="/" element={
-          <MainContainer setSearchTerm={setSearchTerm} posts={posts} searchTerm={searchTerm}>
-            <TopContainer />
-            <MiddleContainer announcements={announcements} />
-            <FloatingButton />
-          </MainContainer>
-        } />
-        <Route path="/post/:id" element={<PostDetail posts={posts} updatePost={updatePost} deletePost={deletePost} />} />
-        <Route path="/announcement/:id" element={<AnnouncementDetail />} />
-        <Route path="/write" element={<WritePage addPost={addPost} />} />
-      </Routes>
-    </>
+    <div>
+      <h1>게시판 목록</h1>
+      <ul>
+        {data.map(board => (
+          <li key={board.boardId}>
+            <h2>{board.title}</h2>
+            <p>{board.content}</p>
+            <p>작성자: {board.writerName}</p>
+            <p>조회수: {board.viewCount}</p>
+            <p>작성일: {new Date(board.createdDate).toLocaleString()}</p>
+            <p>수정일: {new Date(board.modifiedData).toLocaleString()}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

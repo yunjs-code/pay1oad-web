@@ -9,6 +9,7 @@ import ToS from "./comp/signin/ToS";
 import Board from "./comp/news/Board";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import Splash from "./comp/main/Splash";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<MainPage />} />
+            <Route path="/" element={<Splash />} />
+            <Route path="/home" element={<MainPage />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/login" element={<LogIn />} />
             <Route path="/nickname" element={<NickName />} />

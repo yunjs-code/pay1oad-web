@@ -175,7 +175,7 @@ function MainHome() {
         </LeftWrapper>
         <RightWrapper>
           <TextFont_2>
-            {"PAY1OAD".split("").map((char, index) => (
+            {"Pay1oad".split("").map((char, index) => (
               <span key={index}>{char}</span>
             ))}
           </TextFont_2>
