@@ -249,7 +249,6 @@ const BoardDetail = () => {
         <ul>
           {comments.map(comment => (
             <li key={comment.commentId}>
-              <p>ID: {comment.commentId}</p> {/* commentId 출력 */}
               <p>{comment.content}</p>
               <p>작성자: {comment.commentWriterName}</p>
               <p>작성일: {new Date(comment.createdDate).toLocaleString()}</p>

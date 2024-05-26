@@ -6,6 +6,7 @@ function UserInfo({ userName }) {
   const [selectedTab, setSelectedTab] = useState('정보');
   const [solvesCount, setSolvesCount] = useState(0);
   const [totalValue, setTotalValue] = useState(0);
+  const [userPostCount, setUserPostCount] = useState(0); // 사용자 작성 글 개수 상태 추가
   const [userInfo, setUserInfo] = useState({
     username: '' // username 상태 추가
   });
@@ -28,6 +29,29 @@ function UserInfo({ userName }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          console.error('토큰이 없습니다. 로그인 해주세요.');
+          return;
+        }
+
+        // 사용자 작성 글 개수를 가져오는 API 호출
+        const responseUserPosts = await axios.post('http://pay1oad.com/api/board/search', {
+          title: "",
+          content: "",
+          username: userName
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        if (responseUserPosts.data && Array.isArray(responseUserPosts.data)) {
+          setUserPostCount(responseUserPosts.data.length);
+        } else {
+          console.error('사용자 작성 글 데이터를 불러오는데 실패했습니다.');
+        }
+
         const responseSolves = await axios.get('http://pay1oad.com/ctfd/api/v1/users/2/solves', {
           headers: { 'Authorization': 'Bearer ctfd_58937b6c68c0adb28aeeaf169727ab380902d51dc7d4ca66feba05d5d3610f3c' }
         });
@@ -37,7 +61,7 @@ function UserInfo({ userName }) {
         setTotalValue(totalSolvedValue);
 
         const responseUserInfo = await axios.get('http://pay1oad.com/ctfd/api/v1/users/2', {
-          headers: { 'Authorization': 'Bearer ctfd_58937b6c68c0adb28aeeaf169727ab380902d51dc7d4ca66feba05d5d3610f3c' }
+          headers: { 'Authorization': 'Bearer ctfd_58937b6c0adb28aeeaf169727ab380902d51dc7d4ca66feba05d5d3610f3c' }
         });
         if (responseUserInfo.data.success && responseUserInfo.data.data) {
           ctfdsetUserInfo({
@@ -53,7 +77,7 @@ function UserInfo({ userName }) {
     };
 
     fetchData();
-  }, []);
+  }, [userName]);
 
   const handleSelectTab = (tab) => {
     setSelectedTab(tab);
@@ -92,27 +116,27 @@ function UserInfo({ userName }) {
           <div className="tab-content">
             <div className="detail-item">댓글</div>
             <div className="detail-item">질문</div>
-            <div className="detail-item">작성 글</div>
+            <div className="detail-item">작성 글: {userPostCount}</div> {/* 사용자 작성 글 개수 표시 */}
           </div>
         );
-        case '저장':
-          return (
-            <div className="tab-content">
-              <input
-                type="text"
-                placeholder="Search posts..."
-                value={searchQuery}  // Corrected to show the state variable
-                onChange={(e) => setSearchSearch(e.target.value)}
-              />
-              {filteredPosts.slice(startIndex, endIndex).map(post => (
-                <div key={post.id} className="detail-item">{post.content}</div>
-              ))}
-              <div>
-                <button disabled={currentPage <= 1} onClick={() => setCurrentPage(currentPage - 1)}>이전</button>
-                <button disabled={endIndex >= filteredPosts.length} onClick={() => setCurrentPage(currentPage + 1)}>다음</button>
-              </div>
+      case '저장':
+        return (
+          <div className="tab-content">
+            <input
+              type="text"
+              placeholder="Search posts..."
+              value={searchQuery}  // Corrected to show the state variable
+              onChange={(e) => setSearchSearch(e.target.value)}
+            />
+            {filteredPosts.slice(startIndex, endIndex).map(post => (
+              <div key={post.id} className="detail-item">{post.content}</div>
+            ))}
+            <div>
+              <button disabled={currentPage <= 1} onClick={() => setCurrentPage(currentPage - 1)}>이전</button>
+              <button disabled={endIndex >= filteredPosts.length} onClick={() => setCurrentPage(currentPage + 1)}>다음</button>
             </div>
-          );
+          </div>
+        );
         
       default:
         return (
@@ -142,5 +166,3 @@ function UserInfo({ userName }) {
 }
 
 export default UserInfo;
-
-  

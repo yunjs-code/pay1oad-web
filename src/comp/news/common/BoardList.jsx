@@ -5,6 +5,7 @@ import './BoardList.css';
 
 const BoardList = () => {
   const [data, setData] = useState({ content: [] }); // 게시판 데이터를 저장할 상태
+  const [topPosts, setTopPosts] = useState([]); // 조회수가 높은 게시글을 저장할 상태
   const [loading, setLoading] = useState(true); // 로딩 상태를 관리할 상태
   const [error, setError] = useState(null); // 에러 메시지를 저장할 상태
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호를 저장할 상태
@@ -35,6 +36,23 @@ const BoardList = () => {
         });
         console.log('응답 데이터:', response.data);
         setData(response.data); // 응답 데이터를 상태에 저장
+
+        // 조회수가 높은 글 5개 가져오기
+        const topResponse = await axios.get('http://pay1oad.com/api/board/list', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          params: {
+            page: 0, // 첫 페이지에서 가져옴
+            size: 1000 // 충분히 큰 값을 설정하여 모든 게시글을 가져옴
+          }
+        });
+
+        const topPostsSorted = topResponse.data.content
+          .sort((a, b) => b.viewCount - a.viewCount)
+          .slice(0, 5); // 조회수 기준으로 정렬 후 상위 5개 추출
+
+        setTopPosts(topPostsSorted); // 조회수 높은 게시글을 상태에 저장
       } catch (err) {
         console.error('에러 응답:', err.response);
         setError(err.response ? err.response.data.message : err.message); // 에러 메시지 설정
@@ -110,6 +128,18 @@ const BoardList = () => {
 
   return (
     <div>
+      <h2>조회수가 높은 글</h2>
+      <div className="top-posts">
+        {topPosts.map(post => (
+          <div className="board-item" key={post.boardId} onClick={() => handleItemClick(post.boardId)}>
+            <h3>{post.title}</h3>
+            <p>{new Date(post.createdDate).toLocaleDateString()}</p>
+            <p>by {post.writerName}</p>
+            <p>조회수: {post.viewCount}</p>
+          </div>
+        ))}
+      </div>
+
       <h1>게시판 목록</h1>
       <form onSubmit={handleSearch}>
         <select value={searchOption} onChange={(e) => setSearchOption(e.target.value)}>
@@ -128,12 +158,16 @@ const BoardList = () => {
         <button type="submit">검색</button>
       </form>
       <button className="write-button" onClick={handleWriteClick}>글쓰기</button>
+      
+      
+
       <div className="board-grid">
         {data.content.map(board => (
           <div className="board-item" key={board.boardId} onClick={() => handleItemClick(board.boardId)}>
             <h2>{board.title}</h2>
             <p>{new Date(board.createdDate).toLocaleDateString()}</p>
-            <p>by {board.username}</p> {/* 작성자를 표시 */}
+            <p>by {board.username}</p>
+            <p>조회수: {board.viewCount}</p> {/* 조회수를 표시 */}
           </div>
         ))}
       </div>
