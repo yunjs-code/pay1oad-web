@@ -40,7 +40,7 @@ const Header = () => {
   };
 
   const goToClubNews = () => {
-    navigate("/board");
+    navigate("/board", { state: { loggedIn: true, username: userName } });
   };
 
   const goToUserPage = () => {
