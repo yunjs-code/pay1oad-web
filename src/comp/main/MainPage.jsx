@@ -44,9 +44,9 @@ function HomeWeb() {
       <SliderObject>
         <MainClubNews />
       </SliderObject>
-      <GreenBox />
-      <GreyBox />
-      <OrangeBox />
+      <SliderObject>
+        <MainClubNews />
+      </SliderObject>
     </Base>
   );
 }
