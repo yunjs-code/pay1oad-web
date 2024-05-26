@@ -1,0 +1,56 @@
+.board-write {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .board-write h1 {
+    margin-bottom: 20px;
+  }
+  
+  .board-write .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .board-write .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .board-write .form-group input,
+  .board-write .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .board-write .form-group textarea {
+    resize: vertical;
+    height: 200px;
+  }
+  
+  .board-write button {
+    background-color: #36567d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .board-write button:hover {
+    background-color: #2a4560;
+  }
+  
+  .board-write .error {
+    color: red;
+    margin-bottom: 20px;
+  }
+  

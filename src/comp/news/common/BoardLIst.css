@@ -1,0 +1,74 @@
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.board-item {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.3s;
+  cursor: pointer;
+}
+
+.board-item:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+.board-item h2 {
+  margin: 0 0 10px 0;
+  font-size: 1.5em;
+}
+
+.board-item p {
+  margin: 5px 0;
+  font-size: 1em;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.pagination button {
+  background-color: #36567d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination button:disabled {
+  background-color: #a0a0a0;
+  cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #2a4560;
+}
+
+.write-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 20px;
+}
+
+.write-button:hover {
+  background-color: #45a049;
+}
