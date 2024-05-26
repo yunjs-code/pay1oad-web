@@ -146,31 +146,30 @@ function LogIn() {
         passwd,
       };
 
-      try {
-        const response = await axios.post("/auth/signin", data);
-        const { accessToken, userInfo } = response.data;
-        localStorage.setItem("token", accessToken);
-        axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-        dispatch(loginUser(userInfo));
-        navigate("/", { state: { loggedIn: true, username: userInfo.username } });
-      } catch (error) {
-        if (error.response) {
-          const { status } = error.response;
-          if (status === 400) {
-            setMsg("ID, Password를 입력하세요.");
-          } else if (status === 401) {
-            setMsg("존재하지 않는 ID입니다.");
-          } else if (status === 402) {
-            setMsg("Password가 틀립니다.");
+      axios
+        .post("http://pay1oad.com/api/auth/signin", data)
+        .then((response) => {
+          const { token, username } = response.data;
+          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+          dispatch(loginUser({ username }));
+          navigate("/home", { state: { loggedIn: true, username } });
+        })
+        .catch((error) => {
+          if (error.response) {
+            const { status } = error.response;
+            if (status === 400) {
+              setMsg("ID, Password를 입력하세요.");
+            } else if (status === 401) {
+              setMsg("존재하지 않는 ID입니다.");
+            } else if (status === 402) {
+              setMsg("Password가 틀립니다.");
+            } else {
+              setMsg("서버 오류가 발생했습니다.");
+            }
           } else {
-            setMsg("서버 오류가 발생했습니다.");
+            setMsg("서버에 연결할 수 없습니다.");
           }
-        } else {
-          setMsg("서버에 연결할 수 없습니다.");
-        }
-      } finally {
-        setLoading(false);
-      }
+        });
     }
   };
 
