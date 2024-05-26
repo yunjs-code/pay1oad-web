@@ -14,3 +14,97 @@
     margin: 10px 0;
   }
   
+  .comments-section {
+    margin-top: 40px;
+  }
+  
+  .comments-section h2 {
+    margin-bottom: 20px;
+  }
+  
+  .comments-section form {
+    margin-bottom: 20px;
+  }
+  
+  .comments-section textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: vertical;
+    height: 100px;
+    margin-bottom: 10px;
+  }
+  
+  .comments-section button {
+    background-color: #36567d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .comments-section button:hover {
+    background-color: #2a4560;
+  }
+  
+  .comments-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .comments-section ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .comments-section ul li p {
+    margin: 5px 0;
+  }
+  
+  .edit-form {
+    margin-bottom: 20px;
+  }
+  
+  .edit-form div {
+    margin-bottom: 10px;
+  }
+  
+  .edit-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .edit-form input,
+  .edit-form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .edit-form button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .edit-form button:hover {
+    background-color: #45a049;
+  }
+  
+  .edit-form button[type="button"] {
+    background-color: #f44336;
+  }
+  
+  .edit-form button[type="button"]:hover {
+    background-color: #e53935;
+  }
+  

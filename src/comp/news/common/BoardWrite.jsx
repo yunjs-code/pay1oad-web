@@ -28,7 +28,7 @@ const BoardWrite = () => {
         }
       });
       console.log('게시글 작성 응답:', response.data);
-      navigate('/');
+      window.location.href = 'http://pay1oad.com/board'; // 글 작성 후 URL로 이동
     } catch (err) {
       console.error('게시글 작성 에러:', err.response);
       setError(err.response ? err.response.data.message : err.message);

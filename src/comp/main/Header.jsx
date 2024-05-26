@@ -73,7 +73,7 @@ const Header = () => {
           </>
         ) : (
           <>
-            <div className="text-css" onClick={goToSign}>Sign IN</div>
+            <div className="text-css" onClick={goToSign}>Sign UP</div>
             <div className="text-css" onClick={goToLogIn}>LOG IN</div>
           </>
         )}
