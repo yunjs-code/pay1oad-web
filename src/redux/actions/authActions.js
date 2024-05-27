@@ -1,16 +1,12 @@
-// authActions.js
+// src/redux/actions/authActions.js
+export const LOGIN_USER = 'LOGIN_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';
 
-// 로그인 액션 생성자
-export const loginUser = (userInfo) => {
-  return {
-    type: 'LOGIN_USER',
-    payload: userInfo
-  };
-};
+export const loginUser = (user) => ({
+  type: LOGIN_USER,
+  payload: user,
+});
 
-// 로그아웃 액션 생성자
-export const logoutUser = () => {
-  return {
-    type: 'LOGOUT_USER'
-  };
-};
+export const logoutUser = () => ({
+  type: LOGOUT_USER,
+});

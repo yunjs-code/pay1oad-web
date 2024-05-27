@@ -1,11 +1,14 @@
+// src/common/BoardDetail.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import './BoardDetail.css';
 
 const BoardDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const [data, setData] = useState(null);
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -274,3 +277,4 @@ const BoardDetail = () => {
 };
 
 export default BoardDetail;
+

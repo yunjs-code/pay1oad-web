@@ -1,23 +1,24 @@
-// authReducer.js
+// src/redux/reducers/authReducer.js
+import { LOGIN_USER, LOGOUT_USER } from '../actions/authActions';
 
 const initialState = {
-  userInfo: {},
-  loggedIn: false
+  isLoggedIn: false,
+  user: null,
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'LOGIN_USER':
+    case LOGIN_USER:
       return {
         ...state,
-        userInfo: action.payload,
-        loggedIn: true
+        isLoggedIn: true,
+        user: action.payload,
       };
-    case 'LOGOUT_USER':
+    case LOGOUT_USER:
       return {
         ...state,
-        userInfo: {},
-        loggedIn: false
+        isLoggedIn: false,
+        user: null,
       };
     default:
       return state;

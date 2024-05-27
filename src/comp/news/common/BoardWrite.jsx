@@ -1,6 +1,8 @@
+// src/common/BoardWrite.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import './BoardWrite.css';
 
 const BoardWrite = () => {
@@ -8,6 +10,7 @@ const BoardWrite = () => {
   const [content, setContent] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,12 +31,16 @@ const BoardWrite = () => {
         }
       });
       console.log('게시글 작성 응답:', response.data);
-      window.location.href = 'http://pay1oad.com/board'; // 글 작성 후 URL로 이동
+      navigate('/board'); // 글 작성 후 URL로 이동
     } catch (err) {
       console.error('게시글 작성 에러:', err.response);
       setError(err.response ? err.response.data.message : err.message);
     }
   };
+
+  if (!isLoggedIn) {
+    return <p>로그인이 필요합니다.</p>;
+  }
 
   return (
     <div className="board-write">

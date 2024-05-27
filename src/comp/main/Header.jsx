@@ -1,33 +1,18 @@
-import React, { useState, useEffect } from "react";
+// src/main/Header.jsx
+import React, { useEffect } from "react";
 import "./Header.css";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../redux/actions/authActions';
 
 const Header = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
-  const [loginSuccess, setLoginSuccess] = useState(false);
-  const [userName, setUserName] = useState("");
-
-  useEffect(() => {
-    const loggedIn = location.state?.loggedIn || false;
-    if (loggedIn) {
-      setLoginSuccess(true);
-      const usernameFromState = location.state?.username || "";
-      setUserName(usernameFromState);
-    } else {
-      setLoginSuccess(false);
-      setUserName("");
-    }
-  }, [location.state]);
+  const { isLoggedIn, user } = useSelector((state) => state.auth);
 
   const handleLogout = () => {
     console.log("로그아웃 버튼 클릭");
     dispatch(logoutUser());
-    setLoginSuccess(false);
-    setUserName("");
     navigate("/");
   };
 
@@ -39,16 +24,8 @@ const Header = () => {
     navigate("/login");
   };
 
-  const goToClubNews = () => {
-    navigate("/board", { state: { loggedIn: true, username: userName } });
-  };
-
-  const goToClubNews1 = () => {
-    navigate("/board/write", { state: { loggedIn: true, username: userName } });
-  };
-
   const goToUserPage = () => {
-    navigate("/userpage", { state: { loggedIn: true, username: userName } });
+    navigate("/userpage");
   };
 
   const goToCtf = () => {
@@ -65,14 +42,14 @@ const Header = () => {
         <div className="logo" onClick={goToHome}> {/* 로고 클릭 시 홈으로 이동 */}
           <img src="" alt="Logo" className="logo-image" />
         </div>
-        <div className="text-css" onClick={goToClubNews}>Club News</div>
+        <div className="text-css" onClick={() => navigate("/board")}>Club News</div>
         <div className="text-css">Security News</div>
         <div className="text-css" onClick={goToCtf}>CTF</div>
       </div>
       <div className="right-wrapper">
-        {loginSuccess ? (
+        {isLoggedIn ? (
           <>
-            <div className="text-css" onClick={goToUserPage}> {userName} 님 </div>
+            <div className="text-css" onClick={goToUserPage}>{user.username} 님</div>
             <button className="button" onClick={handleLogout}>로그아웃</button>
           </>
         ) : (
