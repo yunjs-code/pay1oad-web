@@ -43,6 +43,10 @@ const Header = () => {
     navigate("/board", { state: { loggedIn: true, username: userName } });
   };
 
+  const goToClubNews1 = () => {
+    navigate("/board/write", { state: { loggedIn: true, username: userName } });
+  };
+
   const goToUserPage = () => {
     navigate("/userpage", { state: { loggedIn: true, username: userName } });
   };

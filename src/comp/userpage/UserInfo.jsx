@@ -33,6 +33,8 @@ function UserInfo({ userName }) {
       return;
     }
 
+    console.log('토큰:', token); // 디버깅용 로그
+
     axios.post('http://pay1oad.com/api/board/search', {
       title: "",
       content: "",
@@ -43,45 +45,48 @@ function UserInfo({ userName }) {
       }
     })
     .then((responseUserPosts) => {
-      if (responseUserPosts.data && Array.isArray(responseUserPosts.data)) {
-        setUserPostCount(responseUserPosts.data.length);
-        console.log('User posts data:', responseUserPosts.data);
+      console.log('사용자 작성 글 응답:', responseUserPosts); // 디버깅용 로그
+      if (responseUserPosts.data && Array.isArray(responseUserPosts.data.content)) {
+        setUserPostCount(responseUserPosts.data.content.length);
+        console.log('사용자 작성 글 개수:', responseUserPosts.data.content.length); // 디버깅용 로그
       } else {
         console.error('사용자 작성 글 데이터를 불러오는데 실패했습니다.');
       }
     })
     .catch((error) => {
-      console.error('API 요청 중 오류 발생:', error);
+      console.error('사용자 작성 글 API 요청 중 오류 발생:', error); // 디버깅용 로그
     });
 
     axios.get('http://pay1oad.com/ctfd/api/v1/users/2/solves', {
       headers: { 'Authorization': 'Bearer ctfd_58937b6c68c0adb28aeeaf169727ab380902d51dc7d4ca66feba05d5d3610f3c' }
     })
     .then((responseSolves) => {
+      console.log('CTF 풀이 응답:', responseSolves); // 디버깅용 로그
       const solvedByMe = responseSolves.data.data.filter(c => c.type === "correct");
       setSolvesCount(solvedByMe.length);
       const totalSolvedValue = solvedByMe.reduce((val, elem) => val + elem.challenge.value, 0);
       setTotalValue(totalSolvedValue);
     })
     .catch((error) => {
-      console.error('API 요청 중 오류 발생:', error);
+      console.error('CTF 풀이 API 요청 중 오류 발생:', error); // 디버깅용 로그
     });
 
     axios.get('http://pay1oad.com/ctfd/api/v1/users/2', {
       headers: { 'Authorization': 'Bearer ctfd_58937b6c68c0adb28aeeaf169727ab380902d51dc7d4ca66feba05d5d3610f3c' }
     })
     .then((responseUserInfo) => {
+      console.log('CTF 사용자 정보 응답:', responseUserInfo); // 디버깅용 로그
       if (responseUserInfo.data.success && responseUserInfo.data.data) {
         ctfdsetUserInfo({
           name: responseUserInfo.data.data.name,
           joinDate: responseUserInfo.data.data.date
         });
       } else {
-        console.error('사용자 데이터를 불러오는데 실패했습니다.');
+        console.error('CTF 사용자 데이터를 불러오는데 실패했습니다.');
       }
     })
     .catch((error) => {
-      console.error('API 요청 중 오류 발생:', error);
+      console.error('CTF 사용자 정보 API 요청 중 오류 발생:', error); // 디버깅용 로그
     });
   }, [userName]);
 
