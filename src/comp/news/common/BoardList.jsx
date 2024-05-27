@@ -134,7 +134,7 @@ const BoardList = () => {
           <div className="board-item" key={post.boardId} onClick={() => handleItemClick(post.boardId)}>
             <h3>{post.title}</h3>
             <p>{new Date(post.createdDate).toLocaleDateString()}</p>
-            <p>by {post.writerName}</p>
+            <p>by {post.username}</p>
             <p>조회수: {post.viewCount}</p>
           </div>
         ))}

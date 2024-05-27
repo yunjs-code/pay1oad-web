@@ -6,16 +6,16 @@ function UserInfo({ userName }) {
   const [selectedTab, setSelectedTab] = useState('정보');
   const [solvesCount, setSolvesCount] = useState(0);
   const [totalValue, setTotalValue] = useState(0);
-  const [userPostCount, setUserPostCount] = useState(0); // 사용자 작성 글 개수 상태 추가
+  const [userPostCount, setUserPostCount] = useState(0);
   const [userInfo, setUserInfo] = useState({
-    username: '' // username 상태 추가
+    username: ''
   });
   const [ctfduserInfo, ctfdsetUserInfo] = useState({
     name: '',
     joinDate: '',
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3; // Items per page for pagination
+  const itemsPerPage = 3;
   const [searchQuery, setSearchSearch] = useState('');
 
   const savedPosts = [
@@ -27,56 +27,62 @@ function UserInfo({ userName }) {
   ];
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        if (!token) {
-          console.error('토큰이 없습니다. 로그인 해주세요.');
-          return;
-        }
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('토큰이 없습니다. 로그인 해주세요.');
+      return;
+    }
 
-        // 사용자 작성 글 개수를 가져오는 API 호출
-        const responseUserPosts = await axios.post('http://pay1oad.com/api/board/search', {
-          title: "",
-          content: "",
-          username: userName
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-
-        if (responseUserPosts.data && Array.isArray(responseUserPosts.data)) {
-          setUserPostCount(responseUserPosts.data.length);
-        } else {
-          console.error('사용자 작성 글 데이터를 불러오는데 실패했습니다.');
-        }
-
-        const responseSolves = await axios.get('http://pay1oad.com/ctfd/api/v1/users/2/solves', {
-          headers: { 'Authorization': 'Bearer ctfd_58937b6c68c0adb28aeeaf169727ab380902d51dc7d4ca66feba05d5d3610f3c' }
-        });
-        const solvedByMe = responseSolves.data.data.filter(c => c.type === "correct");
-        setSolvesCount(solvedByMe.length);
-        const totalSolvedValue = solvedByMe.reduce((val, elem) => val + elem.challenge.value, 0);
-        setTotalValue(totalSolvedValue);
-
-        const responseUserInfo = await axios.get('http://pay1oad.com/ctfd/api/v1/users/2', {
-          headers: { 'Authorization': 'Bearer ctfd_58937b6c0adb28aeeaf169727ab380902d51dc7d4ca66feba05d5d3610f3c' }
-        });
-        if (responseUserInfo.data.success && responseUserInfo.data.data) {
-          ctfdsetUserInfo({
-            name: responseUserInfo.data.data.name,
-            joinDate: responseUserInfo.data.data.date
-          });
-        } else {
-          console.error('사용자 데이터를 불러오는데 실패했습니다.');
-        }
-      } catch (error) {
-        console.error('API 요청 중 오류 발생:', error);
+    axios.post('http://pay1oad.com/api/board/search', {
+      title: "",
+      content: "",
+      username: ""
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`
       }
-    };
+    })
+    .then((responseUserPosts) => {
+      if (responseUserPosts.data && Array.isArray(responseUserPosts.data)) {
+        setUserPostCount(responseUserPosts.data.length);
+        console.log('User posts data:', responseUserPosts.data);
+      } else {
+        console.error('사용자 작성 글 데이터를 불러오는데 실패했습니다.');
+      }
+    })
+    .catch((error) => {
+      console.error('API 요청 중 오류 발생:', error);
+    });
 
-    fetchData();
+    axios.get('http://pay1oad.com/ctfd/api/v1/users/2/solves', {
+      headers: { 'Authorization': 'Bearer ctfd_58937b6c68c0adb28aeeaf169727ab380902d51dc7d4ca66feba05d5d3610f3c' }
+    })
+    .then((responseSolves) => {
+      const solvedByMe = responseSolves.data.data.filter(c => c.type === "correct");
+      setSolvesCount(solvedByMe.length);
+      const totalSolvedValue = solvedByMe.reduce((val, elem) => val + elem.challenge.value, 0);
+      setTotalValue(totalSolvedValue);
+    })
+    .catch((error) => {
+      console.error('API 요청 중 오류 발생:', error);
+    });
+
+    axios.get('http://pay1oad.com/ctfd/api/v1/users/2', {
+      headers: { 'Authorization': 'Bearer ctfd_58937b6c68c0adb28aeeaf169727ab380902d51dc7d4ca66feba05d5d3610f3c' }
+    })
+    .then((responseUserInfo) => {
+      if (responseUserInfo.data.success && responseUserInfo.data.data) {
+        ctfdsetUserInfo({
+          name: responseUserInfo.data.data.name,
+          joinDate: responseUserInfo.data.data.date
+        });
+      } else {
+        console.error('사용자 데이터를 불러오는데 실패했습니다.');
+      }
+    })
+    .catch((error) => {
+      console.error('API 요청 중 오류 발생:', error);
+    });
   }, [userName]);
 
   const handleSelectTab = (tab) => {
@@ -99,8 +105,7 @@ function UserInfo({ userName }) {
       case '정보':
         return (
           <div className="tab-content">
-            <div className="detail-item">{userName} 님의 가입 정보입니다.</div> {/* 수정된 부분 */}
-            
+            <div className="detail-item">{userName} 님의 가입 정보입니다.</div>
           </div>
         );
       case 'CTF':
@@ -116,7 +121,7 @@ function UserInfo({ userName }) {
           <div className="tab-content">
             <div className="detail-item">댓글</div>
             <div className="detail-item">질문</div>
-            <div className="detail-item">작성 글: {userPostCount}</div> {/* 사용자 작성 글 개수 표시 */}
+            <div className="detail-item">작성 글: {userPostCount}</div>
           </div>
         );
       case '저장':
@@ -125,7 +130,7 @@ function UserInfo({ userName }) {
             <input
               type="text"
               placeholder="Search posts..."
-              value={searchQuery}  // Corrected to show the state variable
+              value={searchQuery}
               onChange={(e) => setSearchSearch(e.target.value)}
             />
             {filteredPosts.slice(startIndex, endIndex).map(post => (
