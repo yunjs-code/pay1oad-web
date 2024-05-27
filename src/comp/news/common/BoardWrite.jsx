@@ -1,8 +1,8 @@
-// src/common/BoardWrite.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import DOMPurify from 'dompurify';
 import './BoardWrite.css';
 
 const BoardWrite = () => {
@@ -21,17 +21,22 @@ const BoardWrite = () => {
       return;
     }
 
+    // 제목과 내용을 정화하여 XSS 방지
+    const cleanTitle = DOMPurify.sanitize(title);
+    const cleanContent = DOMPurify.sanitize(content);
+
     try {
       const response = await axios.post('http://pay1oad.com/api/board/write', {
-        title,
-        content
+        title: cleanTitle,
+        content: cleanContent
       }, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
       console.log('게시글 작성 응답:', response.data);
-      navigate('/board'); // 글 작성 후 URL로 이동
+      // 작성 후 글 수를 업데이트하기 위해 navigate에 상태 전달
+      navigate('/board', { state: { postCreated: true } });
     } catch (err) {
       console.error('게시글 작성 에러:', err.response);
       setError(err.response ? err.response.data.message : err.message);

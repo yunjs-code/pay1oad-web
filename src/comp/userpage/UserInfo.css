@@ -50,4 +50,39 @@ body {
   margin: 10px 0; /* 상하 간격 */
   box-shadow: 0 2px 4px rgba(0,0,0,0.5);
   border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail-item span {
+  flex: 1;
+  cursor: pointer;
+}
+
+.detail-item button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.detail-item button.edit {
+  background-color: #f0f0f0;
+}
+
+.detail-item button.edit:hover {
+  background-color: green;
+  color: white;
+}
+
+.detail-item button.delete {
+  background-color: #f0f0f0;
+}
+
+.detail-item button.delete:hover {
+  background-color: red;
+  color: white;
 }

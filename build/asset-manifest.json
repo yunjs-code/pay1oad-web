@@ -1,14 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.9b7f57e0.css",
-    "main.js": "/static/js/main.c0f19fab.js",
+    "main.css": "/static/css/main.4c0e306c.css",
+    "main.js": "/static/js/main.662f92f5.js",
+    "static/js/453.8fb4e126.chunk.js": "/static/js/453.8fb4e126.chunk.js",
+    "static/media/KakaoTalk_20240521_193746437.png": "/static/media/KakaoTalk_20240521_193746437.83b6a661fce954a0d860.png",
     "static/media/logo.png": "/static/media/logo.eaf63cef8a7f94d3562c.png",
+    "static/media/KakaoTalk_20240521_193733793.png": "/static/media/KakaoTalk_20240521_193733793.045f41cfd26ab12bed62.png",
+    "static/media/Fontspring-DEMO-integralcf-extrabold.otf": "/static/media/Fontspring-DEMO-integralcf-extrabold.c85c9e9c39fde1cb5c54.otf",
     "index.html": "/index.html",
-    "main.9b7f57e0.css.map": "/static/css/main.9b7f57e0.css.map",
-    "main.c0f19fab.js.map": "/static/js/main.c0f19fab.js.map"
+    "main.4c0e306c.css.map": "/static/css/main.4c0e306c.css.map",
+    "main.662f92f5.js.map": "/static/js/main.662f92f5.js.map",
+    "453.8fb4e126.chunk.js.map": "/static/js/453.8fb4e126.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9b7f57e0.css",
-    "static/js/main.c0f19fab.js"
+    "static/css/main.4c0e306c.css",
+    "static/js/main.662f92f5.js"
   ]
 }

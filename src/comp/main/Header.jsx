@@ -1,9 +1,9 @@
-// src/main/Header.jsx
 import React, { useEffect } from "react";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../redux/actions/authActions';
+import logo from '../../assets/img/KakaoTalk_20240521_193733793.png'; // 이미지 경로
 
 const Header = () => {
   const navigate = useNavigate();
@@ -33,14 +33,14 @@ const Header = () => {
   };
 
   const goToHome = () => {
-    navigate("/");
+    navigate("/home");
   };
 
   return (
     <div className="header">
       <div className="left-wrapper">
         <div className="logo" onClick={goToHome}> {/* 로고 클릭 시 홈으로 이동 */}
-          <img src="" alt="Logo" className="logo-image" />
+          <img src={logo} alt="Logo" className="logo-image" />
         </div>
         <div className="text-css" onClick={() => navigate("/board")}>Club News</div>
         <div className="text-css">Security News</div>

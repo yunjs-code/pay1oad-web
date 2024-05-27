@@ -1,8 +1,8 @@
-// src/common/BoardDetail.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import DOMPurify from 'dompurify';
 import './BoardDetail.css';
 
 const BoardDetail = () => {
@@ -31,18 +31,20 @@ const BoardDetail = () => {
       }
 
       try {
-        console.log('Fetching board data...');
         const response = await axios.get(`http://pay1oad.com/api/board/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
-        console.log('Board data:', response.data);
-        setData(response.data);
-
+        // 데이터 정화
+        const sanitizedData = {
+          ...response.data,
+          title: DOMPurify.sanitize(response.data.title),
+          content: DOMPurify.sanitize(response.data.content)
+        };
+        setData(sanitizedData);
         await fetchComments();
       } catch (err) {
-        console.error('Error fetching data:', err);
         setError(err.response ? err.response.data.message : err.message);
       } finally {
         setLoading(false);
@@ -55,20 +57,21 @@ const BoardDetail = () => {
   const fetchComments = async () => {
     const token = localStorage.getItem('token');
     try {
-      console.log('Fetching comments...');
       const commentResponse = await axios.get(`http://pay1oad.com/api/board/${id}/comment/list`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      console.log('Comments data:', commentResponse.data);
       if (Array.isArray(commentResponse.data.content)) {
-        setComments(commentResponse.data.content);
+        const sanitizedComments = commentResponse.data.content.map(comment => ({
+          ...comment,
+          content: DOMPurify.sanitize(comment.content)
+        }));
+        setComments(sanitizedComments);
       } else {
         setComments([]);
       }
     } catch (err) {
-      console.error('Error fetching comments:', err);
       setError(err.response ? err.response.data.message : err.message);
     }
   };
@@ -83,19 +86,17 @@ const BoardDetail = () => {
     }
 
     try {
-      console.log('Submitting comment...');
-      const response = await axios.post(`http://pay1oad.com/api/board/${id}/comment/write`, {
-        content: commentContent
+      const cleanCommentContent = DOMPurify.sanitize(commentContent);
+      await axios.post(`http://pay1oad.com/api/board/${id}/comment/write`, {
+        content: cleanCommentContent
       }, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      console.log('Comment submitted:', response.data);
       setCommentContent('');
       fetchComments(); // 댓글 작성 후 댓글 목록을 다시 불러옴
     } catch (err) {
-      console.error('Error submitting comment:', err);
       setError(err.response ? err.response.data.message : err.message);
     }
   };
@@ -110,7 +111,6 @@ const BoardDetail = () => {
       });
       fetchComments(); // 댓글 삭제 후 댓글 목록을 다시 불러옴
     } catch (err) {
-      console.error('Error deleting comment:', err);
       setError(err.response ? err.response.data.message : err.message);
     }
   };
@@ -130,8 +130,9 @@ const BoardDetail = () => {
     }
 
     try {
+      const cleanEditCommentContent = DOMPurify.sanitize(editCommentContent);
       await axios.patch(`http://pay1oad.com/api/board/${id}/comment/update/${editingCommentId}`, {
-        content: editCommentContent
+        content: cleanEditCommentContent
       }, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -141,7 +142,6 @@ const BoardDetail = () => {
       setEditCommentContent('');
       fetchComments(); // 댓글 수정 후 댓글 목록을 다시 불러옴
     } catch (err) {
-      console.error('Error updating comment:', err);
       setError(err.response ? err.response.data.message : err.message);
     }
   };
@@ -156,7 +156,6 @@ const BoardDetail = () => {
       });
       navigate('/board'); // 게시글 삭제 후 /board로 이동
     } catch (err) {
-      console.error('Error deleting post:', err);
       setError(err.response ? err.response.data.message : err.message);
     }
   };
@@ -177,18 +176,19 @@ const BoardDetail = () => {
     }
 
     try {
+      const cleanEditTitle = DOMPurify.sanitize(editTitle);
+      const cleanEditContent = DOMPurify.sanitize(editContent);
       await axios.patch(`http://pay1oad.com/api/board/${id}/update`, {
-        title: editTitle,
-        content: editContent
+        title: cleanEditTitle,
+        content: cleanEditContent
       }, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      setData({ ...data, title: editTitle, content: editContent });
+      setData({ ...data, title: cleanEditTitle, content: cleanEditContent });
       setIsEditing(false);
     } catch (err) {
-      console.error('Error updating post:', err);
       setError(err.response ? err.response.data.message : err.message);
     }
   };
@@ -277,4 +277,3 @@ const BoardDetail = () => {
 };
 
 export default BoardDetail;
-
